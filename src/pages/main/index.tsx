@@ -1,39 +1,33 @@
 /** @jsxImportSource @emotion/react */
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import { css } from "@emotion/react";
 import useStory from "../../stores";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  const [inputAge, setInputAge] = useState<number | null>(null);
-  const [selectedCharacter, setSelecetdCharacter] = useState<string | null>(
-    null
-  );
-  const { setAge, setCharacter } = useStory();
+  const { age, character, setAge, setCharacter } = useStory();
   const navigate = useNavigate();
 
   const navigateKeyword = () => {
-    if (inputAge && selectedCharacter) {
-      setAge(inputAge);
-      setCharacter(selectedCharacter);
+    if (age && character) {
       navigate("/keyword");
-    } else if (!inputAge && !selectedCharacter) {
+    } else if (!age && !character) {
       alert("나이와 캐릭터를 선택해주세요!");
-    } else if (!inputAge) {
+    } else if (!age) {
       alert("나이를 선택해주세요!");
-    } else if (!selectedCharacter) {
+    } else if (!character) {
       alert("캐릭터를 선택해주세요!");
     }
   };
 
   const changeAge = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    setInputAge(Number(target.value));
+    setAge(Number(target.value));
   };
 
   const changeCharacter = (e: MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLInputElement;
-    setSelecetdCharacter(target.id);
+    setCharacter(target.id);
   };
   return (
     <>
@@ -51,7 +45,7 @@ const Main = () => {
             type="radio"
             id="rabbit"
             name="rabbit"
-            checked={"rabbit" === selectedCharacter}
+            checked={"rabbit" === character}
             readOnly
           />
         </div>
@@ -60,7 +54,7 @@ const Main = () => {
             type="radio"
             id="bear"
             name="bear"
-            checked={"bear" === selectedCharacter}
+            checked={"bear" === character}
             readOnly
           />
         </div>
@@ -69,7 +63,7 @@ const Main = () => {
             type="radio"
             id="dog"
             name="dog"
-            checked={"dog" === selectedCharacter}
+            checked={"dog" === character}
             readOnly
           />
         </div>

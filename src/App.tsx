@@ -24,7 +24,7 @@ function App() {
 }
 
 const wrapperCss = css`
-  width: 70%;
+  width: 70vw;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

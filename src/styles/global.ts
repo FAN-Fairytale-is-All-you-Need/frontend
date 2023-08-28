@@ -2,6 +2,11 @@ import { css } from "@emotion/react";
 
 const global = css`
   @import url("https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css");
+  :root {
+    --font-size-lg: clamp(2rem, 4vw, 3.5rem);
+    --font-size-md: clamp(1.5rem, 3vw, 2.5rem);
+    --font-size-sm: clamp(1rem, 2vw, 1.5rem);
+  }
   html,
   body,
   div,
@@ -86,7 +91,6 @@ const global = css`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 16px;
     font-family: "NanumSquareRound", sans-serif;
     vertical-align: baseline;
   }
@@ -128,7 +132,6 @@ const global = css`
   }
   input,
   button {
-    font-size: 16px;
     font-family: "NanumSquareRound", sans-serif;
   }
 `;

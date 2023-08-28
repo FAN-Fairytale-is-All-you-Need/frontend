@@ -8,7 +8,7 @@ const logoCss = css`
   text-align: center;
   margin: 1rem 0;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: var(--font-size-lg);
 `;
 
 export default Logo;
