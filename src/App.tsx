@@ -24,11 +24,9 @@ function App() {
 }
 
 const wrapperCss = css`
-  width: 70vw;
+  width: clamp(480px, 100vw, 1200px);
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0 20px;
 `;
 
 export default App;
