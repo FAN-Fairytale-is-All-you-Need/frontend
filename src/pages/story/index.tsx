@@ -1,13 +1,25 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useEffect } from "react";
+import Logo from "../../components/logo";
 import Slider from "react-slick";
 import useStory from "../../stores";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
+import lightbulb from "../../assets/lightbulb.svg";
 
 const Story = () => {
-  const { storyText, storyImage, setStoryText, setStoryImage } = useStory();
+  const navigate = useNavigate();
+  const {
+    keyword,
+    storyText,
+    storyImage,
+    storyDesc,
+    setStoryText,
+    setStoryImage,
+    setStoryDesc,
+  } = useStory();
   useEffect(() => {
     const testStoryText = [
       "옛날 옛적에, 지구라는 큰 행성에는 중력이라는 힘이 있었어요. 중력은 마치 끌어당기는 힘이에요. 이 힘은 모든 물체를 지구로 끌어당기는데, 그래서 물건들이 아래로 떨어지거나 땅에 붙어있는 거래요.",
@@ -21,24 +33,32 @@ const Story = () => {
       "https://picsum.photos/500/300",
       "https://picsum.photos/500/300",
     ];
+    const testStoryDesc =
+      "중력은 지구가 우리 주위의 모든 물체를 끌어당기는 힘이에요. 예를 들어,지구에서 떨어지면 우리는 땅으로 떨어지게 됩니다. 이것이 중력의 법칙이에요. 중력은 지구 안에 있는 모든 물체에 작용해요. 그래서 헤어핀, 공, 돌, 심지어는 사람들도 모두 지구를 향해 끌어당겨져요. 그래서 우리가 땅에 서 있을 수 있는 거예요. 때로는 중력 때문에 물체들이 떨어지게 되는데요. 예를 들어, 토이 블록을 높은 곳에서 떨어뜨리면 바닥에 떨어지게 되죠. 이건 중력 때문에 일어나는 일이에요.";
     setStoryText(testStoryText);
     setStoryImage(testStoryImage);
+    setStoryDesc(testStoryDesc);
   }, []);
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const renderSlider = () => {
     const settings = {
       speed: 500,
       slidesToShow: 1,
+      infinite: false,
     };
     return (
       <div css={sliderCss}>
         <Slider {...settings}>
           {storyText.map((text: string, index: number) => {
             return (
-              <div css={storyWrapperCss}>
-                <div key={index} css={storyCss}>
+              <div>
+                <div key={index} css={imageAndTextCss}>
                   <img src={storyImage[index]} />
-                  <div>{text}</div>
+                  <div className="text">{text}</div>
                 </div>
               </div>
             );
@@ -48,26 +68,29 @@ const Story = () => {
     );
   };
   return (
-    <div css={storyWrapperCss}>
-      {renderSlider()}
-      <div css={keywordCss}>
-        <div css={labelCss}>중력의 법칙이란?</div>
-        <div css={descCss}>
-          중력은 지구가 우리 주위의 모든 물체를 끌어당기는 힘이에요. 예를 들어,
-          지구에서 떨어지면 우리는 땅으로 떨어지게 됩니다. 이것이 중력의
-          법칙이에요. 중력은 지구 안에 있는 모든 물체에 작용해요. 그래서 헤어핀,
-          공, 돌, 심지어는 사람들도 모두 지구를 향해 끌어당겨져요. 그래서 우리가
-          땅에 서 있을 수 있는 거예요. 때로는 중력 때문에 물체들이 떨어지게
-          되는데요. 예를 들어, 토이 블록을 높은 곳에서 떨어뜨리면 바닥에
-          떨어지게 되죠. 이건 중력 때문에 일어나는 일이에요.
+    <div css={storyCss}>
+      <Logo goBack={goBack} />
+      <div css={wrapperCss}>
+        {renderSlider()}
+        <div css={storyDescCss}>
+          <img src={lightbulb} />
+          <div className="label">{keyword}이란?</div>
+          <div className="text">{storyDesc}</div>
         </div>
       </div>
     </div>
   );
 };
 
+const storyCss = css`
+  height: 100vh;
+  background-image: url("src/assets/rabbit-bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
 const sliderCss = css`
-  width: 50vw;
+  width: 688px;
   .slick-prev {
     &:before {
       position: absolute;
@@ -76,7 +99,7 @@ const sliderCss = css`
       color: black;
       content: "<";
       top: 50%;
-      left: -2vw;
+      left: -20px;
       transform: translateY(-50%);
     }
   }
@@ -88,44 +111,61 @@ const sliderCss = css`
       color: black;
       content: ">";
       top: 50%;
-      left: 25vw;
+      right: -330px;
       transform: translateY(-50%);
+    }
+    &:disabled {
+      color: red;
     }
   }
 `;
 
-const storyCss = css`
+const imageAndTextCss = css`
   img {
-    width: 50vw;
+    width: 668px;
+    height: 403px;
+    border-radius: 20px;
+    border: 1px solid var(--gray4);
+    margin-bottom: 12px;
   }
   div {
-    line-height: 150%;
-    padding: 1rem;
-    font-size: 1.5rem;
-    background-color: #eeeeee;
+    width: 598px;
+    height: min-content;
+    line-height: 175%;
+    padding: 32px 35px;
+    font-size: var(--body--size);
+    font-weight: 700;
+    background-color: var(--white);
+    border-radius: 20px;
   }
 `;
 
-const keywordCss = css`
-  width: 20vw;
-  background-color: #eeeeee;
-  padding: 1rem;
-  border-radius: 1rem;
-  margin-bottom: 5rem;
+const storyDescCss = css`
+  width: 276px;
+  height: min-content;
+  padding: 36px 24px 48px 24px;
+  background-color: var(--primary2);
+  border-radius: 20px;
+  text-align: center;
+  .label {
+    margin: 8px 0 16px 0;
+    font-size: var(--tag--size);
+    font-weight: 800;
+    color: var(--primary);
+    text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
+      -2px 2px 0 var(--white), 2px 2px 0 var(--white);
+  }
+  .text {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 160%;
+  }
 `;
 
-const labelCss = css`
-  margin-bottom: 1rem;
-  font-weight: 700;
-`;
-
-const descCss = css`
-  line-height: 150%;
-`;
-
-const storyWrapperCss = css`
+const wrapperCss = css`
+  padding: 40px 100px;
   display: flex;
-  gap: 1rem;
 `;
 
 export default Story;
