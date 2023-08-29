@@ -20,6 +20,7 @@ const Story = () => {
     setStoryImage,
     setStoryDesc,
   } = useStory();
+
   useEffect(() => {
     const testStoryText = [
       "옛날 옛적에, 지구라는 큰 행성에는 중력이라는 힘이 있었어요. 중력은 마치 끌어당기는 힘이에요. 이 힘은 모든 물체를 지구로 끌어당기는데, 그래서 물건들이 아래로 떨어지거나 땅에 붙어있는 거래요.",
@@ -44,11 +45,37 @@ const Story = () => {
     navigate(-1);
   };
 
+  const NextArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <button
+        css={nextArrowCss}
+        className={className}
+        onClick={onClick}
+        disabled={className?.includes("slick-disabled")}
+      ></button>
+    );
+  };
+
+  const PrevArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <button
+        css={prevArrowCss}
+        className={className}
+        onClick={onClick}
+        disabled={className?.includes("slick-disabled")}
+      ></button>
+    );
+  };
+
   const renderSlider = () => {
     const settings = {
       speed: 500,
       slidesToShow: 1,
       infinite: false,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
     };
     return (
       <div css={sliderCss}>
@@ -91,32 +118,30 @@ const storyCss = css`
 
 const sliderCss = css`
   width: 688px;
-  .slick-prev {
-    &:before {
-      position: absolute;
-      opacity: 1;
-      font-size: 3rem;
-      color: black;
-      content: "<";
-      top: 50%;
-      left: -20px;
-      transform: translateY(-50%);
-    }
+`;
+
+const prevArrowCss = css`
+  &:before {
+    position: absolute;
+    opacity: 1;
+    content: url("src/assets/prev.svg");
+    top: 50%;
+    left: -20px;
   }
-  .slick-next {
-    &:before {
-      position: absolute;
-      opacity: 1;
-      font-size: 3rem;
-      color: black;
-      content: ">";
-      top: 50%;
-      right: -330px;
-      transform: translateY(-50%);
-    }
-    &:disabled {
-      color: red;
-    }
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
+const nextArrowCss = css`
+  &:before {
+    position: absolute;
+    opacity: 1;
+    content: url("src/assets/next.svg");
+    top: 50%;
+    right: -330px;
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 

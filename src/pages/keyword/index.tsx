@@ -124,15 +124,29 @@ const Keyword = () => {
             </div>
           </>
         ) : (
-          <>
+          <div css={loadingCss}>
             <Loading />
-            <div>동화를 만드는 중이에요. 최대 3분이 소요돼요.</div>
-          </>
+            <div>
+              동화를 만드는 중이에요. <br />
+              조금만 기다려주세요.
+            </div>
+          </div>
         )}
       </div>
     </div>
   );
 };
+
+const loadingCss = css`
+  padding: 180px 0;
+  text-align: center;
+  font-size: var(--header--size);
+  font-weight: var(--header--weight);
+  color: var(--gray1);
+  text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
+    -2px 2px 0 var(--white), 2px 2px 0 var(--white);
+  line-height: 130%;
+`;
 
 const keywordCss = (url: string) => css`
   height: 100vh;

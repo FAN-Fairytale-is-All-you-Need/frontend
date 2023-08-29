@@ -1,99 +1,54 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import rabbit from "../../assets/rabbit-head.png";
+import bear from "../../assets/bear-head.png";
+import puppy from "../../assets/puppy-head.png";
 
 const Loading = () => {
   return (
-    <div css={spinnerCss}>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    <div css={loadingCss}>
+      <img src={rabbit} />
+      <img src={bear} />
+      <img src={puppy} />
     </div>
   );
 };
 
-const spinnerCss = css`
+const loadingCss = css`
   display: inline-block;
   position: relative;
-  width: 4.8rem;
-  height: 4.8rem;
-  div {
-    transform-origin: 2.4rem 2.4rem;
-    animation: spinner 1.2s linear infinite;
-  }
-  div:after {
-    content: " ";
-    display: block;
+  width: 300px;
+  height: 120px;
+  img {
+    display: inline-block;
     position: absolute;
-    top: 1.2rem;
-    left: 2.3rem;
-    width: 0.24rem;
-    height: 0.72rem;
-    border-radius: 25%;
-    background: #bbbbbb;
+    width: 108px;
+    animation: lds-facebook 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   }
-  div:nth-child(1) {
-    transform: rotate(0deg);
-    animation-delay: -1.1s;
+  img:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.48s;
   }
-  div:nth-child(2) {
-    transform: rotate(30deg);
-    animation-delay: -1s;
+  img:nth-child(2) {
+    left: 80px;
+    animation-delay: -0.24s;
   }
-  div:nth-child(3) {
-    transform: rotate(60deg);
-    animation-delay: -0.9s;
+  img:nth-child(3) {
+    left: 160px;
+    animation-delay: 0;
   }
-  div:nth-child(4) {
-    transform: rotate(90deg);
-    animation-delay: -0.8s;
-  }
-  div:nth-child(5) {
-    transform: rotate(120deg);
-    animation-delay: -0.7s;
-  }
-  div:nth-child(6) {
-    transform: rotate(150deg);
-    animation-delay: -0.6s;
-  }
-  div:nth-child(7) {
-    transform: rotate(180deg);
-    animation-delay: -0.5s;
-  }
-  div:nth-child(8) {
-    transform: rotate(210deg);
-    animation-delay: -0.4s;
-  }
-  div:nth-child(9) {
-    transform: rotate(240deg);
-    animation-delay: -0.3s;
-  }
-  div:nth-child(10) {
-    transform: rotate(270deg);
-    animation-delay: -0.2s;
-  }
-  div:nth-child(11) {
-    transform: rotate(300deg);
-    animation-delay: -0.1s;
-  }
-  div:nth-child(12) {
-    transform: rotate(330deg);
-    animation-delay: 0s;
-  }
-  @keyframes spinner {
+  @keyframes lds-facebook {
     0% {
-      opacity: 1;
+      top: 16px;
+      height: 72;
+    }
+    50% {
+      top: 24px;
+      height: 84;
     }
     100% {
-      opacity: 0;
+      top: 16px;
+      height: 72;
     }
   }
 `;
