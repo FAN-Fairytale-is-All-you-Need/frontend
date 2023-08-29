@@ -33,7 +33,6 @@ const Main = () => {
   return (
     <div css={mainCss}>
       <Logo />
-
       <div css={wrapperCss}>
         <div css={descCss}>동화로 쉽고 즐겁게 배워봐요!</div>
         <div css={labelCss} placeholder="나이">
