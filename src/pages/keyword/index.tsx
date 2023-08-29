@@ -5,9 +5,15 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/loading";
 import Logo from "../../components/logo";
+import bear from "../../assets/bear-body.png";
+import rabbit from "../../assets/rabbit-body.png";
+import puppy from "../../assets/puppy-body.png";
 
 const Keyword = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [bgUrl, setBgUrl] = useState<string>("");
+  const [color, setColor] = useState<string>("");
+  const [color2, setColor2] = useState<string>("");
   const { age, character, keyword, setKeyword } = useStory();
   const navigate = useNavigate();
 
@@ -16,11 +22,26 @@ const Keyword = () => {
     if (age === 0 || character === "") {
       navigate("/");
     }
+    if (character === "토끼") {
+      setBgUrl("src/assets/rabbit-bg.png");
+      setColor("--primary");
+      setColor2("--primary2");
+    } else if (character === "곰") {
+      setBgUrl("src/assets/bear-bg.png");
+      setColor("--green");
+      setColor2("--green2");
+    } else if (character === "강아지") {
+      setBgUrl("src/assets/puppy-bg.png");
+      setColor("--purple");
+      setColor2("--purple2");
+    }
   }, [age, character, navigate]);
 
   const goBack = () => {
     navigate(-1);
   };
+
+  const isEmptyKeyword = keyword !== "" ? false : true;
 
   const requestStory = () => {
     if (age && character && keyword) {
@@ -44,6 +65,16 @@ const Keyword = () => {
     }
   };
 
+  const renderCharacter = () => {
+    if (character === "토끼") {
+      return <img src={rabbit} width={287} />;
+    } else if (character === "곰") {
+      return <img src={bear} width={287} />;
+    } else if (character === "강아지") {
+      return <img src={puppy} width={287} />;
+    }
+  };
+
   const changeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     setKeyword(target.value);
@@ -57,104 +88,154 @@ const Keyword = () => {
   };
 
   return (
-    <>
+    <div css={keywordCss(bgUrl)}>
       <Logo goBack={goBack} />
-      {!loading ? (
-        <>
-          <div css={guideCss}>
-            <div css={bubbleCss}>
-              궁금한 점이나 이해하기 어려웠던 것이 있다면 나에게 알려줘! ‘지층'
-              처럼 단어로 입력해도 되고, ‘지층의 종류가 궁금해' 처럼 문장으로
-              입력해도 좋아.
+      <div css={wrapperCss}>
+        {!loading ? (
+          <>
+            <div css={guideCss}>
+              <div css={bubbleCss(color, color2)}>
+                궁금한 점이나 이해하기 어려웠던 것이 있다면 나에게 알려줘!
+                <br />
+                <span>‘지층'</span> 처럼 단어로 입력해도 되고,{" "}
+                <span>'지층의 종류가 궁금해'</span> 처럼
+                <br />
+                문장으로 입력해도 좋아.
+              </div>
+              {renderCharacter()}
             </div>
-            <div css={characterCss}>{character}</div>
-          </div>
-          <div css={inputWrapperCss}>
-            이런 주제에 대해서도 물어볼 수 있어요.
-            <div css={recommandCss} onClick={setRecommandKeyword}>
-              <div>중력</div>
-              <div>화산</div>
-              <div>저축</div>
-              <div>인공지능</div>
+            <div css={inputWrapperCss}>
+              이런 주제에 대해서도 물어볼 수 있어요.
+              <div css={recommandCss(color)} onClick={setRecommandKeyword}>
+                <div>중력</div>
+                <div>화산</div>
+                <div>저축</div>
+                <div>인공지능</div>
+              </div>
+              <div css={inputCss} className={isEmptyKeyword ? "empty" : ""}>
+                <input
+                  type="text"
+                  onChange={changeKeyword}
+                  value={keyword}
+                  placeholder="궁금한 점을 입력해주세요."
+                />
+                <button onClick={requestStory} disabled={isEmptyKeyword} />
+              </div>
             </div>
-            <div css={inputCss}>
-              <input
-                type="text"
-                onChange={changeKeyword}
-                value={keyword}
-              ></input>
-              <button onClick={requestStory}>보내기</button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <Loading />
-          <div>동화를 만드는 중이에요. 최대 3분이 소요돼요.</div>
-        </>
-      )}
-    </>
+          </>
+        ) : (
+          <>
+            <Loading />
+            <div>동화를 만드는 중이에요. 최대 3분이 소요돼요.</div>
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 
+const keywordCss = (url: string) => css`
+  height: 100vh;
+  background-image: url(${url});
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
+const wrapperCss = css`
+  padding: 40px 100px;
+  display: flex;
+  flex-direction: column;
+`;
+
 const inputCss = css`
   display: flex;
-  background-color: #eeeeee;
-  border: 1px solid #dddddd;
-  border-radius: 1rem;
-  padding: 1rem;
-  font-size: 1.5rem;
+  width: 957px;
+  padding: 27px 33px;
+  background: var(--white);
+  border: 2.5px solid var(--secondary--light);
+  border-radius: 24px;
+  gap: 24px;
+  &.empty {
+    border: 2.5px solid var(--gray5);
+  }
   input {
     width: 100%;
     background: none;
     border: none;
+    font-size: var(--body--size);
+    font-weight: var(--body--weight);
   }
   button {
+    background: transparent;
     border: none;
+    width: 42px;
+    height: 42px;
+    background-image: url("src/assets/send-enabled.svg");
+    background-repeat: no-repeat;
+    cursor: pointer;
+    :disabled {
+      background-image: url("src/assets/send-disabled.svg");
+      cursor: not-allowed;
+    }
   }
 `;
 
 const inputWrapperCss = css`
-  position: fixed;
-  bottom: 2vh;
-  left: 15vw;
-  width: 70vw;
+  font-size: var(--body--size);
+  font-weight: var(--body--weight);
 `;
 
-const recommandCss = css`
-  margin: 0.5rem 0;
+const recommandCss = (color: string) => css`
+  margin: 15px 0 25px 0;
   display: flex;
-  gap: 0.5rem;
+  gap: 10px;
   div {
-    background-color: #eeeeee;
-    padding: 0.6rem 1.2rem;
-    border-radius: 0.2rem;
+    background: var(${color});
+    border-radius: 30px;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--tag--size);
+    font-weight: var(--tag--weight);
+    padding: 14px 22px;
+    cursor: pointer;
   }
 `;
 
 const guideCss = css`
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: end;
-  gap: 1rem;
+  justify-content: right;
+  margin-bottom: 120px;
 `;
 
-const bubbleCss = css`
-  width: 25em;
-  padding: 1.5rem;
-  background-color: #eeeeee;
-  border-radius: 2rem;
-  line-height: 150%;
-`;
-
-const characterCss = css`
-  width: 10rem;
-  height: 14rem;
-  background-color: #eeeeee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const bubbleCss = (color: string, color2: string) => css`
+  position: relative;
+  padding: 32px 36px;
+  height: min-content;
+  color: var(--black);
+  background-color: var(${color2});
+  font-size: var(--body--size);
+  font-weight: var(--body--weight);
+  border-radius: 30px;
+  line-height: 160%;
+  span {
+    color: var(${color});
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-color: transparent var(${color2});
+    border-width: 16px 0 16px 24px;
+    top: 72%;
+    right: -24px;
+    margin-top: -16px;
+  }
 `;
 
 export default Keyword;

@@ -16,6 +16,10 @@ const global = css`
     --primary3: #fff9eb;
     --secondary: #fff385;
     --secondary--light: #fffce5;
+    --purple: #a762e8;
+    --purple2: #ece2f5;
+    --green: #0dc053;
+    --green2: #d3fce3;
     --black: #000000;
     --gray1: #676767;
     --gray2: #8b8b8b;
