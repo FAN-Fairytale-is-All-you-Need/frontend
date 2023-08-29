@@ -12,7 +12,7 @@ const Keyword = () => {
 
   useEffect(() => {
     // 상태 저장되지 않았을 경우 메인 페이지로 리다이렉트
-    if (!age || !character) {
+    if (age === 0 || character === "") {
       navigate("/");
     }
   }, [age, character, navigate]);
@@ -21,8 +21,15 @@ const Keyword = () => {
     if (age && character && keyword) {
       setTimeout(() => {
         navigate("/story");
-      }, 3000);
-      alert("요청" + age + character + keyword);
+      }, 5000);
+      alert(
+        age +
+          "세에게 들려줄 " +
+          character +
+          " 캐릭터의 " +
+          keyword +
+          " 이야기를 생성할게요."
+      );
       setLoading(true);
     } else if (!age || !character) {
       alert("나이와 캐릭터를 입력해주세요.");

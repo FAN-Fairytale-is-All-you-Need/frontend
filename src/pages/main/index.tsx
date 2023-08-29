@@ -42,28 +42,25 @@ const Main = () => {
       <div css={characterCss} onClick={changeCharacter}>
         <div>
           <input
-            type="radio"
-            id="rabbit"
-            name="rabbit"
-            checked={"rabbit" === character}
+            type="checkbox"
+            id="토끼"
+            checked={"토끼" === character}
             readOnly
           />
         </div>
         <div>
           <input
-            type="radio"
-            id="bear"
-            name="bear"
-            checked={"bear" === character}
+            type="checkbox"
+            id="곰"
+            checked={"곰" === character}
             readOnly
           />
         </div>
         <div>
           <input
-            type="radio"
-            id="dog"
-            name="dog"
-            checked={"dog" === character}
+            type="checkbox"
+            id="강아지"
+            checked={"강아지" === character}
             readOnly
           />
         </div>
@@ -123,13 +120,13 @@ const characterCss = css`
   input:checked {
     background-color: #cccccc;
   }
-  #bear:after {
+  #곰:after {
     content: "곰";
   }
-  #rabbit:after {
+  #토끼:after {
     content: "토끼";
   }
-  #dog:after {
+  #강아지:after {
     content: "강아지";
   }
 `;
