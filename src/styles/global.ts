@@ -3,18 +3,20 @@ import { css } from "@emotion/react";
 const global = css`
   @import url("https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css");
   html,
-  body {
+  body,
+  input,
+  button {
     margin: 0;
     padding: 0;
+    font-family: "NanumSquareRound", sans-serif;
   }
   :root {
-    font-family: "NanumSquareRound", sans-serif;
     --primary: #ff9162;
     --primary2: #ffeed2;
     --primary3: #fff9eb;
     --secondary: #fff385;
-    --secondary--ight: #fffce5;
-    --black: black;
+    --secondary--light: #fffce5;
+    --black: #000000;
     --gray1: #676767;
     --gray2: #8b8b8b;
     --gray3: #d6d5d5;

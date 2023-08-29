@@ -1,14 +1,33 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-const Logo = () => {
-  return <div css={logoCss}>LOGO</div>;
+import arrow from "../../assets/arrow.svg";
+
+interface props {
+  goBack?: () => void;
+}
+
+const Logo = ({ goBack }: props) => {
+  return (
+    <div css={logoCss}>
+      {goBack && <img src={arrow} alt="뒤로 가기" onClick={goBack} />}
+      LOGO
+    </div>
+  );
 };
 
 const logoCss = css`
-  text-align: center;
-  margin: 1rem 0;
-  font-weight: 700;
-  font-size: var(--font-size-lg);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 21px 0px 14px 0px;
+  background: var(--primary);
+  font-size: var(--header--size);
+  font-weight: var(--header--weight);
+  img {
+    position: absolute;
+    left: 22px;
+  }
 `;
 
 export default Logo;

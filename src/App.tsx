@@ -5,13 +5,11 @@ import Main from "./pages/main/index.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Keyword from "./pages/keyword/index.tsx";
 import Story from "./pages/story/index.tsx";
-import Logo from "./components/logo/index.tsx";
 
 function App() {
   return (
     <div css={wrapperCss}>
       <Global styles={global} />
-      <Logo />
       <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Main />} />
