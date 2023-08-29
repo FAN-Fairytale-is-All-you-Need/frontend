@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useEffect } from "react";
+import { MouseEventHandler, useEffect } from "react";
 import Logo from "../../components/logo";
 import Slider from "react-slick";
 import useStory from "../../stores";
@@ -45,7 +45,10 @@ const Story = () => {
     navigate(-1);
   };
 
-  const NextArrow = (props) => {
+  const NextArrow = (props: {
+    className?: string;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+  }) => {
     const { className, onClick } = props;
     return (
       <button
@@ -57,7 +60,10 @@ const Story = () => {
     );
   };
 
-  const PrevArrow = (props) => {
+  const PrevArrow = (props: {
+    className?: string;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+  }) => {
     const { className, onClick } = props;
     return (
       <button
