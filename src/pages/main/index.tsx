@@ -4,6 +4,10 @@ import { css } from "@emotion/react";
 import useStory from "../../stores";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../components/logo";
+import rabbitBg from "../../assets/rabbit-bg.png";
+import rabbitBody from "../../assets/rabbit-body.png";
+import bearBody from "../../assets/bear-body.png";
+import puppyBody from "../../assets/puppy-body.png";
 
 const Main = () => {
   const { age, character, setAge, setCharacter } = useStory();
@@ -91,7 +95,7 @@ const Main = () => {
 
 const mainCss = css`
   height: 100vh;
-  background-image: url("src/assets/rabbit-bg.png");
+  background-image: url(${rabbitBg});
   background-position: center;
   background-repeat: no-repeat;
 `;
@@ -178,17 +182,17 @@ const characterCss = css`
     }
   }
   #곰:after {
-    content: url("src/assets/bear-body.png");
+    content: url(${bearBody});
     transform: scale(0.5);
     opacity: 0.7;
   }
   #토끼:after {
-    content: url("src/assets/rabbit-body.png");
+    content: url(${rabbitBody});
     transform: scale(0.5);
     opacity: 0.7;
   }
   #강아지:after {
-    content: url("src/assets/puppy-body.png");
+    content: url(${puppyBody});
     transform: scale(0.5);
     opacity: 0.7;
   }

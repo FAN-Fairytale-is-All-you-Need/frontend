@@ -5,9 +5,14 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/loading";
 import Logo from "../../components/logo";
+import rabbitBg from "../../assets/rabbit-bg.png";
+import puppyBg from "../../assets/puppy-bg.png";
+import bearBg from "../../assets/bear-bg.png";
 import bear from "../../assets/bear-body.png";
 import rabbit from "../../assets/rabbit-body.png";
 import puppy from "../../assets/puppy-body.png";
+import sendEnabled from "../../assets/send-enabled.svg";
+import sendDisabled from "../../assets/send-disabled.svg";
 
 const Keyword = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,15 +28,15 @@ const Keyword = () => {
       navigate("/");
     }
     if (character === "토끼") {
-      setBgUrl("src/assets/rabbit-bg.png");
+      setBgUrl(rabbitBg);
       setColor("--primary");
       setColor2("--primary2");
     } else if (character === "곰") {
-      setBgUrl("src/assets/bear-bg.png");
+      setBgUrl(bearBg);
       setColor("--green");
       setColor2("--green2");
     } else if (character === "강아지") {
-      setBgUrl("src/assets/puppy-bg.png");
+      setBgUrl(puppyBg);
       setColor("--purple");
       setColor2("--purple2");
     }
@@ -184,11 +189,11 @@ const inputCss = css`
     border: none;
     width: 42px;
     height: 42px;
-    background-image: url("src/assets/send-enabled.svg");
+    background-image: url(${sendEnabled});
     background-repeat: no-repeat;
     cursor: pointer;
     :disabled {
-      background-image: url("src/assets/send-disabled.svg");
+      background-image: url(${sendDisabled});
       cursor: not-allowed;
     }
   }

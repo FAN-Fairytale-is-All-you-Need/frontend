@@ -8,6 +8,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
 import lightbulb from "../../assets/lightbulb.svg";
+import next from "../../assets/next.svg";
+import prev from "../../assets/prev.svg";
+import rabbitBg from "../../assets/rabbit-bg.png";
 
 const Story = () => {
   const navigate = useNavigate();
@@ -117,7 +120,7 @@ const Story = () => {
 
 const storyCss = css`
   height: 100vh;
-  background-image: url("src/assets/rabbit-bg.png");
+  background-image: url(${rabbitBg});
   background-position: center;
   background-repeat: no-repeat;
 `;
@@ -130,7 +133,7 @@ const prevArrowCss = css`
   &:before {
     position: absolute;
     opacity: 1;
-    content: url("src/assets/prev.svg");
+    content: url(${prev});
     top: 50%;
     left: -20px;
   }
@@ -142,7 +145,7 @@ const nextArrowCss = css`
   &:before {
     position: absolute;
     opacity: 1;
-    content: url("src/assets/next.svg");
+    content: url(${next});
     top: 50%;
     right: -330px;
   }
