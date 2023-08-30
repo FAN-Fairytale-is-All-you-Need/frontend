@@ -80,15 +80,7 @@ const Story = () => {
       setStoryImage(testStoryImage);
       setStoryDesc(testStoryDesc);
     }
-  }, [
-    age,
-    character,
-    keyword,
-    navigate,
-    setStoryDesc,
-    setStoryImage,
-    setStoryText,
-  ]);
+  }, []);
 
   const goBack = () => {
     navigate(-1);
