@@ -38,10 +38,10 @@ const Main = () => {
     setCharacter(target.id);
   };
   return (
-    <div css={mainCss}>
+    <>
       <Logo />
       <div css={wrapperCss}>
-        <div css={descCss}>동화로 쉽고 즐겁게 배워봐요!</div>
+        <div css={descCss}>동화로 쉽고 재밌게 배워봐요!</div>
         <div css={labelCss} placeholder="나이">
           나이를 알려주세요.
         </div>
@@ -89,22 +89,18 @@ const Main = () => {
           다음
         </button>
       </div>
-    </div>
+    </>
   );
 };
-
-const mainCss = css`
-  height: 100vh;
-  background-image: url(${rabbitBg});
-  background-position: center;
-  background-repeat: no-repeat;
-`;
-
 const wrapperCss = css`
+  height: 100%;
   padding: 40px 100px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
+  background-image: url(${rabbitBg});
+  background-position: center 0;
+  background-repeat: no-repeat;
 `;
 
 const descCss = css`
@@ -112,6 +108,20 @@ const descCss = css`
   font-size: var(--header--size);
   font-weight: var(--header--weight);
   color: var(--primary);
+  text-shadow: calc(3px * 1) 0 0 white,
+    calc(3px * 0.9239) calc(3px * 0.3827) 0 white,
+    calc(3px * 0.7071) calc(3px * 0.7071) 0 white,
+    calc(3px * 0.3827) calc(3px * 0.9239) 0 white, 0 calc(3px * 1) 0 white,
+    calc(3px * -0.3827) calc(3px * 0.9239) 0 white,
+    calc(3px * -0.7071) calc(3px * 0.7071) 0 white,
+    calc(3px * -0.9239) calc(3px * 0.3827) 0 white, calc(3px * -1) 0 0 white,
+    calc(3px * -0.9239) calc(3px * -0.3827) 0 white,
+    calc(3px * -0.7071) calc(3px * -0.7071) 0 white,
+    calc(3px * -0.3827) calc(3px * -0.9239) 0 white, 0 calc(3px * -1) 0 white,
+    calc(3px * 0.3827) calc(3px * -0.9239) 0 white,
+    calc(3px * 0.7071) calc(3px * -0.7071) 0 white,
+    calc(3px * 0.9239) calc(3px * -0.3827) 0 white,
+    0px 5px 4px rgba(0, 0, 0, 0.4);
 `;
 
 const labelCss = css`
@@ -119,14 +129,16 @@ const labelCss = css`
   text-align: left;
   margin: 44px 0 24px;
   font-size: var(--body--size);
-  font-weight: var(--body--weight);
+  font-weight: var(--tag--weight);
+  text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
+    -2px 2px 0 var(--white), 2px 2px 0 var(--white);
 `;
 
 const ageCss = css`
   width: 100%;
   text-align: left;
   font-size: var(--button--size);
-  font-weight: var(--button--weight);
+  font-weight: var(--tag--weight);
   input {
     width: 120px;
     height: 32px;
@@ -136,6 +148,7 @@ const ageCss = css`
     background-color: transparent;
     border-width: 0 0 4px;
     border-color: var(--secondary);
+    font-weight: var(--button--weight);
     &.empty {
       border-color: var(--gray3);
     }
@@ -170,13 +183,21 @@ const characterCss = css`
   }
   input:checked {
     border: 4px solid var(--secondary);
-    background: var(--secondary--light);
+  }
+  #곰:checked {
+    background: var(--green2);
     &#곰:after {
       opacity: 1;
     }
+  }
+  #토끼:checked {
+    background: var(--secondary--light);
     &#토끼:after {
       opacity: 1;
     }
+  }
+  #강아지:checked {
+    background: var(--purple2);
     &#강아지:after {
       opacity: 1;
     }

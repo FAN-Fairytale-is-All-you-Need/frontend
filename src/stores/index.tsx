@@ -10,10 +10,10 @@ const useStory = create<storyState>((set) => ({
   setKeyword: (input: string) => set({ keyword: input }),
   storyText: [],
   storyImage: [],
-  storyDesc: "",
+  storyDesc: [],
   setStoryText: (input: string[]) => set({ storyText: input }),
   setStoryImage: (input: string[]) => set({ storyImage: input }),
-  setStoryDesc: (input: string) => set({ storyDesc: input }),
+  setStoryDesc: (input: string[]) => set({ storyDesc: input }),
 }));
 
 export default useStory;

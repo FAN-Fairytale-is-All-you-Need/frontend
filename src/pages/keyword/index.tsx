@@ -1,7 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import useStory from "../../stores";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/loading";
 import Logo from "../../components/logo";
@@ -53,14 +59,6 @@ const Keyword = () => {
       setTimeout(() => {
         navigate("/story");
       }, 5000);
-      alert(
-        age +
-          "세에게 들려줄 " +
-          character +
-          " 캐릭터의 " +
-          keyword +
-          " 이야기를 생성할게요."
-      );
       setLoading(true);
     } else if (!age || !character) {
       alert("나이와 캐릭터를 입력해주세요.");
@@ -92,10 +90,16 @@ const Keyword = () => {
     }
   };
 
+  const handleOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      requestStory();
+    }
+  };
+
   return (
-    <div css={keywordCss(bgUrl)}>
+    <>
       <Logo goBack={goBack} />
-      <div css={wrapperCss}>
+      <div css={wrapperCss(bgUrl)}>
         {!loading ? (
           <>
             <div css={guideCss}>
@@ -110,7 +114,7 @@ const Keyword = () => {
               {renderCharacter()}
             </div>
             <div css={inputWrapperCss}>
-              이런 주제에 대해서도 물어볼 수 있어요.
+              <span>이런 주제에 대해서도 물어볼 수 있어요.</span>
               <div css={recommandCss(color)} onClick={setRecommandKeyword}>
                 <div>중력</div>
                 <div>화산</div>
@@ -123,6 +127,7 @@ const Keyword = () => {
                   onChange={changeKeyword}
                   value={keyword}
                   placeholder="궁금한 점을 입력해주세요."
+                  onKeyDown={handleOnKeyDown}
                 />
                 <button onClick={requestStory} disabled={isEmptyKeyword} />
               </div>
@@ -138,12 +143,12 @@ const Keyword = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
 const loadingCss = css`
-  padding: 180px 0;
+  padding: 100px 0 340px;
   text-align: center;
   font-size: var(--header--size);
   font-weight: var(--header--weight);
@@ -153,17 +158,15 @@ const loadingCss = css`
   line-height: 130%;
 `;
 
-const keywordCss = (url: string) => css`
-  height: 100vh;
-  background-image: url(${url});
-  background-position: center;
-  background-repeat: no-repeat;
-`;
-
-const wrapperCss = css`
+const wrapperCss = (url: string) => css`
+  height: 100%;
   padding: 40px 100px;
   display: flex;
   flex-direction: column;
+  justify-content: start;
+  background-image: url(${url});
+  background-position: center 0;
+  background-repeat: no-repeat;
 `;
 
 const inputCss = css`
@@ -171,18 +174,22 @@ const inputCss = css`
   width: 957px;
   padding: 27px 33px;
   background: var(--white);
-  border: 2.5px solid var(--secondary--light);
+  border: 4px solid var(--secondary);
   border-radius: 24px;
   gap: 24px;
+  margin-bottom: 40px;
   &.empty {
-    border: 2.5px solid var(--gray5);
+    border: 4px solid var(--gray5);
   }
   input {
     width: 100%;
     background: none;
     border: none;
     font-size: var(--body--size);
-    font-weight: var(--body--weight);
+    font-weight: var(--tag--weight);
+  }
+  input::placeholder {
+    color: var(--gray3);
   }
   button {
     background: transparent;
@@ -202,6 +209,10 @@ const inputCss = css`
 const inputWrapperCss = css`
   font-size: var(--body--size);
   font-weight: var(--body--weight);
+  span {
+    text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
+      -2px 2px 0 var(--white), 2px 2px 0 var(--white);
+  }
 `;
 
 const recommandCss = (color: string) => css`
@@ -226,7 +237,7 @@ const guideCss = css`
   width: 100%;
   display: flex;
   justify-content: right;
-  margin-bottom: 120px;
+  margin-bottom: 100px;
 `;
 
 const bubbleCss = (color: string, color2: string) => css`
@@ -236,7 +247,7 @@ const bubbleCss = (color: string, color2: string) => css`
   color: var(--black);
   background-color: var(${color2});
   font-size: var(--body--size);
-  font-weight: var(--body--weight);
+  font-weight: var(--tag--weight);
   border-radius: 30px;
   line-height: 160%;
   span {
