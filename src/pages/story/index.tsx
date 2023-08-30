@@ -60,8 +60,8 @@ const Story = () => {
       const testStoryText = [
         "옛날 옛적에, 지구라는 큰 행성에는 중력이라는 힘이 있었어요. 중력은 마치 끌어당기는 힘이에요. 이 힘은 모든 물체를 지구로 끌어당기는데, 그래서 물건들이 아래로 떨어지거나 땅에 붙어있는 거래요.",
         "중력의 비밀은 모든 물체가 무엇이든 끌려온다는 거예요. 작은 물체든 큰 물체든 중력은 모두에게 똑같이 작용해요. 예를 들어, 나무 위에 있는 잎사귀도 중력의 힘에 따라 아래로 내려오게 되죠.",
-        "중력은 물체의 무게에 영향을 주는데요. 무거운 물체일수록 중력이 더 강해져요. 그래서 무거운 물체는 가볍은 물체보다 더 빨리 아래로 떨어지게 되어요. 하지만 중력은 무슨 무게의 물체든 항상 같은 속도로 땅으로 떨어지게 만들어 줘요.",
-        "중력은 우리 주위에서 항상 일어나는 일이에요. 우리가 걷거나 뛰거나 물건을 떨어뜨릴 때마다 중력이 작용해요. 중력의 힘을 이용하면 우리는 물건을 들어올리거나 내려놓을 수도 있어요. 중력의 비밀을 알아가면서 더 흥미로운 것들을 배우고 더 많은 경험을 할 수 있을 거예요!",
+        "중력은 물체의 무게에 영향을 주는데요. 무거운 물체일수록 중력이 더 강해져요. 그래서 무거운 물체는 가볍은 물체보다 더 빨리 아래로 떨어지게 되어요. ",
+        "중력은 우리 주위에서 항상 일어나는 일이에요. 우리가 걷거나 뛰거나 물건을 떨어뜨릴 때마다 중력이 작용해요. 중력의 비밀을 알아가면서 더 흥미로운 것들을 배우고 더 많은 경험을 할 수 있을 거예요!",
       ];
       const testStoryImage = [
         "https://picsum.photos/500/300",
@@ -71,8 +71,8 @@ const Story = () => {
       ];
       const testStoryDesc = [
         "중력은 지구가 우리 주위의 모든 물체를 끌어당기는 힘이에요.",
-        "예를 들어,지구에서 떨어지면 우리는 땅으로 떨어지게 됩니다. 이것이 중력의 법칙이에요.",
-        "중력은 지구 안에 있는 모든 물체에 작용해요. 그래서 헤어핀, 공, 돌, 심지어는 사람들도 모두 지구를 향해 끌어당겨져요. 그래서 우리가 땅에 서 있을 수 있는 거예요.",
+        "예를 들어, 지구에서 떨어지면 우리는 땅으로 떨어지게 됩니다. 이것이 중력의 법칙이에요.",
+        "중력은 지구 안에 있는 모든 물체에 작용해요. 그래서 우리가 땅에 서 있을 수 있는 거예요.",
         "때로는 중력 때문에 물체들이 떨어지게 되는데요. 예를 들어, 토이 블록을 높은 곳에서 떨어뜨리면 바닥에 떨어지게 되죠. 이건 중력 때문에 일어나는 일이에요.",
       ];
 
@@ -151,8 +151,8 @@ const Story = () => {
     const desc = storyDesc.map((d: string) => {
       return (
         <>
-          {d}
           <p />
+          {d}
         </>
       );
     });
@@ -168,15 +168,27 @@ const Story = () => {
 };
 
 const sliderCss = css`
-  display: flex;
-  height: min-content;
+  display: flex !important;
+  margin-bottom: 24px;
   .slick-slider {
     width: 688px;
     position: unset;
+    display: flex !important;
+    height: 100%;
+  }
+  .slick-list {
+    height: inherit;
   }
   .slick-track {
     display: flex;
-    align-items: center;
+    height: 100%;
+  }
+
+  .slick-slide {
+    height: 100%;
+    div {
+      height: 100%;
+    }
   }
 `;
 
@@ -207,17 +219,21 @@ const nextArrowCss = css`
 `;
 
 const imageAndTextCss = css`
+  display: flex;
+  flex-direction: column;
   img {
     width: 668px;
     height: 403px;
     border-radius: 20px;
     border: 1px solid var(--gray4);
     margin-bottom: 12px;
+    background-color: var(--gray5);
   }
   div {
     width: 598px;
     line-height: 175%;
-    padding: 32px 35px;
+    flex: 1;
+    padding: 24px 35px;
     font-size: var(--body--size);
     font-weight: 700;
     background-color: var(--white);
@@ -227,12 +243,12 @@ const imageAndTextCss = css`
 
 const storyDescCss = (color: string, color2: string) => css`
   width: 276px;
-  padding: 36px 24px 48px 24px;
+  padding: 24px;
   background-color: var(${color2});
   border-radius: 20px;
   text-align: center;
   .label {
-    margin: 8px 0 16px 0;
+    margin: 8px 0 12px 0;
     font-size: var(--tag--size);
     font-weight: 800;
     color: var(${color});
