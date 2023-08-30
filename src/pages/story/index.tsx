@@ -80,7 +80,7 @@ const Story = () => {
       setStoryImage(testStoryImage);
       setStoryDesc(testStoryDesc);
     }
-  }, []);
+  }, [age, character, keyword]);
 
   const goBack = () => {
     navigate(-1);
@@ -129,11 +129,9 @@ const Story = () => {
         <Slider {...settings}>
           {storyText.map((text: string, index: number) => {
             return (
-              <div>
-                <div key={index} css={imageAndTextCss}>
-                  <img src={storyImage[index]} />
-                  <div className="text">{text}</div>
-                </div>
+              <div key={index} css={imageAndTextCss}>
+                <img src={storyImage[index]} />
+                <div className="text">{text}</div>
               </div>
             );
           })}
@@ -148,13 +146,8 @@ const Story = () => {
   };
 
   const renderStoryDesc = () => {
-    const desc = storyDesc.map((d: string) => {
-      return (
-        <>
-          <p />
-          {d}
-        </>
-      );
+    const desc = storyDesc.map((d: string, index: number) => {
+      return <div key={index}>{d}</div>;
     });
     return desc;
   };
@@ -162,7 +155,9 @@ const Story = () => {
   return (
     <>
       <Logo goBack={goBack} />
-      <div css={wrapperCss(bgUrl)}>{renderSlider()}</div>
+      <div css={wrapperCss(bgUrl)}>
+        {storyText.length > 0 && renderSlider()}
+      </div>
     </>
   );
 };
@@ -173,22 +168,16 @@ const sliderCss = css`
   .slick-slider {
     width: 688px;
     position: unset;
-    display: flex !important;
     height: 100%;
   }
   .slick-list {
-    height: inherit;
+    height: 100%;
   }
   .slick-track {
-    display: flex;
     height: 100%;
   }
-
-  .slick-slide {
+  .slick-slide > div {
     height: 100%;
-    div {
-      height: 100%;
-    }
   }
 `;
 
@@ -219,7 +208,8 @@ const nextArrowCss = css`
 `;
 
 const imageAndTextCss = css`
-  display: flex;
+  display: flex !important;
+  height: 100%;
   flex-direction: column;
   img {
     width: 668px;
@@ -256,6 +246,9 @@ const storyDescCss = (color: string, color2: string) => css`
       -2px 2px 0 var(--white), 2px 2px 0 var(--white);
   }
   .text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     text-align: left;
     font-size: 18px;
     font-weight: 700;
