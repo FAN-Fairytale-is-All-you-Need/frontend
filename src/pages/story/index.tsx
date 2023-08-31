@@ -58,10 +58,10 @@ const Story = () => {
       navigate("/");
     } else {
       const testStoryText = [
-        "옛날 옛적에, 지구라는 큰 행성에는 중력이라는 힘이 있었어요. 중력은 마치 끌어당기는 힘이에요. 이 힘은 모든 물체를 지구로 끌어당기는데, 그래서 물건들이 아래로 떨어지거나 땅에 붙어있는 거래요.",
+        "옛날 옛적에, 지구라는 큰 행성에는 중력이라는 힘이 있었어요. 중력은 마치 끌어당기는 힘이에요. 이 힘은 모든 물체를 지구로 끌어당기는데",
         "중력의 비밀은 모든 물체가 무엇이든 끌려온다는 거예요. 작은 물체든 큰 물체든 중력은 모두에게 똑같이 작용해요. 예를 들어, 나무 위에 있는 잎사귀도 중력의 힘에 따라 아래로 내려오게 되죠.",
         "중력은 물체의 무게에 영향을 주는데요. 무거운 물체일수록 중력이 더 강해져요. 그래서 무거운 물체는 가볍은 물체보다 더 빨리 아래로 떨어지게 되어요. ",
-        "중력은 우리 주위에서 항상 일어나는 일이에요. 우리가 걷거나 뛰거나 물건을 떨어뜨릴 때마다 중력이 작용해요. 중력의 비밀을 알아가면서 더 흥미로운 것들을 배우고 더 많은 경험을 할 수 있을 거예요!",
+        "중력은 우리 주위에서 항상 일어나는 일이에요. 우리가 걷거나 뛰거나 물건을 떨어뜨릴 때마다 중력이 작용해요. 중력의 비밀을 알아가면서 더 흥미로운 것들을 배우고 더 많은 경험을 할 수 있을 거예요! ",
       ];
       const testStoryImage = [
         "https://picsum.photos/500/300",
@@ -168,13 +168,17 @@ const sliderCss = css`
   .slick-slider {
     width: 688px;
     position: unset;
-    height: 100%;
+    height: auto;
   }
   .slick-list {
     height: 100%;
   }
   .slick-track {
+    display: flex !important;
     height: 100%;
+  }
+  .slick-slide {
+    height: auto;
   }
   .slick-slide > div {
     height: 100%;
@@ -253,6 +257,7 @@ const storyDescCss = (color: string, color2: string) => css`
     color: var(${color});
     text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
       -2px 2px 0 var(--white), 2px 2px 0 var(--white);
+    margin-bottom: 12px;
   }
   .text {
     display: flex;
