@@ -137,8 +137,10 @@ const Story = () => {
           })}
         </Slider>
         <div css={storyDescCss(color, color2)}>
-          <img src={lb} />
-          <div className="label">{keyword}(이)란?</div>
+          <div className="label">
+            <img src={lb} />
+            {keyword}(이)란?
+          </div>
           <div className="text">{renderStoryDesc()}</div>
         </div>
       </div>
@@ -233,12 +235,21 @@ const imageAndTextCss = css`
 
 const storyDescCss = (color: string, color2: string) => css`
   width: 276px;
-  padding: 24px;
+  padding: 32px 24px;
   background-color: var(${color2});
   border-radius: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .label {
-    margin: 8px 0 12px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    img {
+      width: 34px;
+    }
     font-size: var(--tag--size);
     font-weight: 800;
     color: var(${color});
