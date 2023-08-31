@@ -3,8 +3,7 @@ import { ChangeEvent, MouseEvent } from "react";
 import { css } from "@emotion/react";
 import useStory from "../../stores";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../components/logo";
-import rabbitBg from "../../assets/rabbit-bg.png";
+import defaultBg from "../../assets/default-bg.png";
 import rabbitBody from "../../assets/rabbit-body.png";
 import bearBody from "../../assets/bear-body.png";
 import puppyBody from "../../assets/puppy-body.png";
@@ -34,13 +33,12 @@ const Main = () => {
   };
 
   const changeCharacter = (e: MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLInputElement;
+    const target = (e.target as HTMLElement).closest("div") as HTMLDivElement;
     setCharacter(target.id);
   };
   return (
-    <>
-      <Logo />
-      <div css={wrapperCss}>
+    <div css={wrapperCss}>
+      <div className="wrapper">
         <div css={descCss}>동화로 쉽고 재밌게 배워봐요!</div>
         <div css={labelCss} placeholder="나이">
           나이를 알려주세요.
@@ -56,29 +54,14 @@ const Main = () => {
         </div>
         <div css={labelCss}>동화에서 만나고 싶은 캐릭터를 골라주세요.</div>
         <div css={characterCss} onClick={changeCharacter}>
-          <div>
-            <input
-              type="checkbox"
-              id="토끼"
-              checked={"토끼" === character}
-              readOnly
-            />
+          <div id="토끼" className={"토끼" === character ? "checked" : ""}>
+            <img src={rabbitBody} />
           </div>
-          <div>
-            <input
-              type="checkbox"
-              id="곰"
-              checked={"곰" === character}
-              readOnly
-            />
+          <div id="곰" className={"곰" === character ? "checked" : ""}>
+            <img src={bearBody} />
           </div>
-          <div>
-            <input
-              type="checkbox"
-              id="강아지"
-              checked={"강아지" === character}
-              readOnly
-            />
+          <div id="강아지" className={"강아지" === character ? "checked" : ""}>
+            <img src={puppyBody} />
           </div>
         </div>
         <button
@@ -89,16 +72,20 @@ const Main = () => {
           다음
         </button>
       </div>
-    </>
+    </div>
   );
 };
 const wrapperCss = css`
-  height: 100%;
-  padding: 40px 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  background-image: url(${rabbitBg});
+  .wrapper {
+    width: clamp(480px, 100vw, 1200px);
+    margin: 0 auto;
+    height: 100%;
+    padding: 72px 100px 132px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  background-image: url(${defaultBg});
   background-position: center 0;
   background-repeat: no-repeat;
 `;
@@ -150,7 +137,7 @@ const ageCss = css`
     border-color: var(--secondary);
     font-weight: var(--button--weight);
     &.empty {
-      border-color: var(--gray3);
+      border-color: var(--white);
     }
     ::-webkit-outer-spin-button,
     ::-webkit-inner-spin-button {
@@ -165,64 +152,43 @@ const characterCss = css`
   display: flex;
   justify-content: center;
   gap: 78px;
+  margin-bottom: 54px;
   div {
     width: 267px;
     height: 243px;
-  }
-  input {
-    appearance: none;
     border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: var(--gray5);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
+    border: 4px solid var(--white);
+    img {
+      height: 100%;
+      width: 100%;
+      opacity: 0.7;
+    }
   }
-  input:checked {
+  .checked {
     border: 4px solid var(--secondary);
+    img {
+      opacity: 1;
+    }
   }
-  #곰:checked {
+  #곰.checked {
     background: var(--green2);
-    &#곰:after {
-      opacity: 1;
-    }
   }
-  #토끼:checked {
+  #토끼.checked {
     background: var(--secondary--light);
-    &#토끼:after {
-      opacity: 1;
-    }
   }
-  #강아지:checked {
+  #강아지.checked {
     background: var(--purple2);
-    &#강아지:after {
-      opacity: 1;
-    }
-  }
-  #곰:after {
-    content: url(${bearBody});
-    transform: scale(0.5);
-    opacity: 0.7;
-  }
-  #토끼:after {
-    content: url(${rabbitBody});
-    transform: scale(0.5);
-    opacity: 0.7;
-  }
-  #강아지:after {
-    content: url(${puppyBody});
-    transform: scale(0.5);
-    opacity: 0.7;
   }
 `;
 
 const buttonCss = css`
   width: 374px;
   height: 72px;
-  margin: 36px auto;
+  margin: 0 auto;
   padding: 19px 0px 21px 0px;
   border-radius: 50px;
   border: none;

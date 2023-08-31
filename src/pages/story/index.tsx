@@ -155,12 +155,10 @@ const Story = () => {
   };
 
   return (
-    <>
-      <Logo goBack={goBack} />
-      <div css={wrapperCss(bgUrl)}>
-        {storyText.length > 0 && renderSlider()}
-      </div>
-    </>
+    <div css={wrapperCss(bgUrl)}>
+      <Logo goBack={goBack} text="완성된 이야기를 확인해보세요" />
+      <div className="wrapper">{storyText.length > 0 && renderSlider()}</div>
+    </div>
   );
 };
 
@@ -186,8 +184,8 @@ const sliderCss = css`
 const prevArrowCss = css`
   position: absolute;
   z-index: 1;
-  top: 50%;
-  left: 22px;
+  top: 40%;
+  left: 110px;
   &:before {
     opacity: 1;
     content: url(${prev});
@@ -198,8 +196,8 @@ const prevArrowCss = css`
 `;
 const nextArrowCss = css`
   position: absolute;
-  top: 50%;
-  right: 22px;
+  top: 40%;
+  right: 110px;
   &:before {
     opacity: 1;
     content: url(${next});
@@ -267,13 +265,18 @@ const storyDescCss = (color: string, color2: string) => css`
   }
 `;
 
-const wrapperCss = (bgUrl: string) => css`
-  height: 100%;
-  padding: 40px 100px;
-  display: flex;
-  position: relative;
-  justify-content: start;
-  background-image: url(${bgUrl});
+const wrapperCss = (url: string) => css`
+  .wrapper {
+    position: relative;
+    width: clamp(480px, 100vw, 1200px);
+    margin: 0 auto;
+    height: 100%;
+    padding: 8px 100px 140px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  background-image: url(${url});
   background-position: center 0;
   background-repeat: no-repeat;
 `;

@@ -22,9 +22,7 @@ function App() {
 }
 
 const wrapperCss = css`
-  width: clamp(480px, 100vw, 1200px);
-  margin: 0 auto;
-  padding: 0 20px;
+  width: 100vw;
 `;
 
 export default App;

@@ -12,14 +12,14 @@ const global = css`
   }
   :root {
     --primary: #ff9162;
-    --primary2: #ffeed2;
+    --primary2: #fff7e1;
     --primary3: #fff9eb;
     --secondary: #fff385;
     --secondary--light: #fffce5;
     --purple: #a762e8;
-    --purple2: #ece2f5;
+    --purple2: #f3e9fd;
     --green: #0dc053;
-    --green2: #d3fce3;
+    --green2: #effff5;
     --black: #000000;
     --gray1: #676767;
     --gray2: #8b8b8b;

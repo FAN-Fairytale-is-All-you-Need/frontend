@@ -24,7 +24,6 @@ const Keyword = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [bgUrl, setBgUrl] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const [color2, setColor2] = useState<string>("");
   const { age, character, keyword, setKeyword } = useStory();
   const navigate = useNavigate();
 
@@ -36,15 +35,12 @@ const Keyword = () => {
     if (character === "토끼") {
       setBgUrl(rabbitBg);
       setColor("--primary");
-      setColor2("--primary2");
     } else if (character === "곰") {
       setBgUrl(bearBg);
       setColor("--green");
-      setColor2("--green2");
     } else if (character === "강아지") {
       setBgUrl(puppyBg);
       setColor("--purple");
-      setColor2("--purple2");
     }
   }, [age, character, navigate]);
 
@@ -85,7 +81,7 @@ const Keyword = () => {
 
   const setRecommandKeyword = (e: MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
-    if (target.textContent) {
+    if (target.textContent && target.className === "keyword") {
       setKeyword(target.textContent);
     }
   };
@@ -97,13 +93,13 @@ const Keyword = () => {
   };
 
   return (
-    <>
-      <Logo goBack={goBack} />
-      <div css={wrapperCss(bgUrl)}>
+    <div css={wrapperCss(bgUrl)}>
+      <Logo goBack={goBack} text="궁금한 주제를 알려주세요" />
+      <div className="wrapper">
         {!loading ? (
           <>
             <div css={guideCss}>
-              <div css={bubbleCss(color, color2)}>
+              <div css={bubbleCss(color)}>
                 궁금한 점이나 이해하기 어려웠던 것이 있다면 나에게 알려줘!
                 <br />
                 <span>‘지층'</span> 처럼 단어로 입력해도 되고,{" "}
@@ -114,22 +110,24 @@ const Keyword = () => {
               {renderCharacter()}
             </div>
             <div css={inputWrapperCss}>
-              <span>이런 주제에 대해서도 물어볼 수 있어요.</span>
-              <div css={recommandCss(color)} onClick={setRecommandKeyword}>
-                <div>중력</div>
-                <div>화산</div>
-                <div>저축</div>
-                <div>인공지능</div>
-              </div>
-              <div css={inputCss} className={isEmptyKeyword ? "empty" : ""}>
-                <input
-                  type="text"
-                  onChange={changeKeyword}
-                  value={keyword}
-                  placeholder="궁금한 점을 입력해주세요."
-                  onKeyDown={handleOnKeyDown}
-                />
-                <button onClick={requestStory} disabled={isEmptyKeyword} />
+              <div>
+                <span>이런 주제에 대해서도 물어볼 수 있어요.</span>
+                <div css={recommandCss(color)} onClick={setRecommandKeyword}>
+                  <div className="keyword">중력</div>
+                  <div className="keyword">화산</div>
+                  <div className="keyword">저축</div>
+                  <div className="keyword">인공지능</div>
+                </div>
+                <div css={inputCss} className={isEmptyKeyword ? "empty" : ""}>
+                  <input
+                    type="text"
+                    onChange={changeKeyword}
+                    value={keyword}
+                    placeholder="궁금한 점을 입력해주세요."
+                    onKeyDown={handleOnKeyDown}
+                  />
+                  <button onClick={requestStory} disabled={isEmptyKeyword} />
+                </div>
               </div>
             </div>
           </>
@@ -143,12 +141,12 @@ const Keyword = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
 const loadingCss = css`
-  padding: 100px 0 340px;
+  padding: 100px 0 240px;
   text-align: center;
   font-size: var(--header--size);
   font-weight: var(--header--weight);
@@ -159,11 +157,15 @@ const loadingCss = css`
 `;
 
 const wrapperCss = (url: string) => css`
-  height: 100%;
-  padding: 40px 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
+  .wrapper {
+    width: clamp(480px, 100vw, 1200px);
+    margin: 0 auto;
+    height: 100%;
+    padding: 72px 100px 140px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
   background-image: url(${url});
   background-position: center 0;
   background-repeat: no-repeat;
@@ -171,15 +173,14 @@ const wrapperCss = (url: string) => css`
 
 const inputCss = css`
   display: flex;
-  width: 957px;
+  width: 883px;
   padding: 27px 33px;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.9);
   border: 4px solid var(--secondary);
   border-radius: 24px;
   gap: 24px;
-  margin-bottom: 40px;
   &.empty {
-    border: 4px solid var(--gray5);
+    border: 4px solid var(--white);
   }
   input {
     width: 100%;
@@ -189,7 +190,7 @@ const inputCss = css`
     font-weight: var(--tag--weight);
   }
   input::placeholder {
-    color: var(--gray3);
+    color: var(--gray2);
   }
   button {
     background: transparent;
@@ -209,6 +210,9 @@ const inputCss = css`
 const inputWrapperCss = css`
   font-size: var(--body--size);
   font-weight: var(--body--weight);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   span {
     text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
       -2px 2px 0 var(--white), 2px 2px 0 var(--white);
@@ -228,6 +232,7 @@ const recommandCss = (color: string) => css`
     justify-content: center;
     font-size: var(--tag--size);
     font-weight: var(--tag--weight);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     padding: 14px 22px;
     cursor: pointer;
   }
@@ -236,16 +241,16 @@ const recommandCss = (color: string) => css`
 const guideCss = css`
   width: 100%;
   display: flex;
-  justify-content: right;
-  margin-bottom: 100px;
+  justify-content: center;
+  margin-bottom: 48px;
 `;
 
-const bubbleCss = (color: string, color2: string) => css`
+const bubbleCss = (color: string) => css`
   position: relative;
   padding: 32px 36px;
   height: min-content;
   color: var(--black);
-  background-color: var(${color2});
+  background-color: var(--white);
   font-size: var(--body--size);
   font-weight: var(--tag--weight);
   border-radius: 30px;
@@ -260,7 +265,7 @@ const bubbleCss = (color: string, color2: string) => css`
     width: 0;
     z-index: 1;
     border-style: solid;
-    border-color: transparent var(${color2});
+    border-color: transparent var(--white);
     border-width: 16px 0 16px 24px;
     top: 72%;
     right: -24px;
