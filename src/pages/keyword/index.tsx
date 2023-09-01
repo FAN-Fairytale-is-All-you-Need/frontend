@@ -146,7 +146,7 @@ const Keyword = () => {
 };
 
 const loadingCss = css`
-  padding: 100px 0 240px;
+  padding: 100px 0 320px;
   text-align: center;
   font-size: var(--header--size);
   font-weight: var(--header--weight);
@@ -161,7 +161,7 @@ const wrapperCss = (url: string) => css`
     width: clamp(480px, 100vw, 1200px);
     margin: 0 auto;
     height: 100%;
-    padding: 72px 100px 140px 100px;
+    padding: 48px 100px 120px 100px;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -242,7 +242,7 @@ const guideCss = css`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 48px;
+  margin-bottom: 80px;
 `;
 
 const bubbleCss = (color: string) => css`

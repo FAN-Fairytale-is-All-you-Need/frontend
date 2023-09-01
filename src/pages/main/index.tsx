@@ -39,7 +39,7 @@ const Main = () => {
   return (
     <div css={wrapperCss}>
       <div className="wrapper">
-        <div css={descCss}>동화로 쉽고 재밌게 배워봐요!</div>
+        <div css={descCss}>나만의 동화로 쉽고 재밌게 배워봐요!</div>
         <div css={labelCss} placeholder="나이">
           나이를 알려주세요.
         </div>
@@ -77,10 +77,10 @@ const Main = () => {
 };
 const wrapperCss = css`
   .wrapper {
-    width: clamp(480px, 100vw, 1200px);
+    width: clamp(480px, 100vw, 1000px);
     margin: 0 auto;
     height: 100%;
-    padding: 72px 100px 132px 100px;
+    padding: 72px 200px 132px 200px;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -150,21 +150,25 @@ const ageCss = css`
 const characterCss = css`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 78px;
   margin-bottom: 54px;
   div {
-    width: 267px;
-    height: 243px;
+    width: 251px;
+    height: 227px;
     border-radius: 30px;
     position: relative;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     border: 4px solid var(--white);
+    display: flex;
+    align-items: center;
+    padding: 8px;
     img {
-      height: 100%;
-      width: 100%;
+      width: 251px;
+      height: 240px;
+      object-fit: cover;
       opacity: 0.7;
     }
   }

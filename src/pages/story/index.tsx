@@ -85,6 +85,9 @@ const Story = () => {
   const goBack = () => {
     navigate(-1);
   };
+  const goHome = () => {
+    navigate("/");
+  };
 
   const NextArrow = (props: {
     className?: string;
@@ -156,7 +159,11 @@ const Story = () => {
 
   return (
     <div css={wrapperCss(bgUrl)}>
-      <Logo goBack={goBack} text="완성된 이야기를 확인해보세요" />
+      <Logo
+        goBack={goBack}
+        text="완성된 이야기를 확인해보세요"
+        goHome={goHome}
+      />
       <div className="wrapper">{storyText.length > 0 && renderSlider()}</div>
     </div>
   );
@@ -276,7 +283,7 @@ const wrapperCss = (url: string) => css`
     width: clamp(480px, 100vw, 1200px);
     margin: 0 auto;
     height: 100%;
-    padding: 8px 100px 140px 100px;
+    padding: 8px 100px 160px 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
