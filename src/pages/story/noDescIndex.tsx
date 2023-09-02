@@ -223,41 +223,6 @@ const imageAndTextCss = css`
   }
 `;
 
-// const storyDescCss = (color: string, color2: string) => css`
-//   width: 276px;
-//   padding: 32px 24px;
-//   background-color: var(${color2});
-//   border-radius: 20px;
-//   text-align: center;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   .label {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     gap: 12px;
-//     img {
-//       width: 34px;
-//     }
-//     font-size: var(--tag--size);
-//     font-weight: 800;
-//     color: var(${color});
-//     text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
-//       -2px 2px 0 var(--white), 2px 2px 0 var(--white);
-//     margin-bottom: 12px;
-//   }
-//   .text {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 12px;
-//     text-align: left;
-//     font-size: 18px;
-//     font-weight: 700;
-//     line-height: 160%;
-//   }
-// `;
-
 const wrapperCss = (url: string) => css`
   .wrapper {
     position: relative;
