@@ -12,16 +12,17 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../components/loading";
 import Logo from "../../components/logo";
 import rabbitBg from "../../assets/rabbit-bg.png";
-import puppyBg from "../../assets/puppy-bg.png";
+import dogBg from "../../assets/dog-bg.png";
 import bearBg from "../../assets/bear-bg.png";
 import bear from "../../assets/bear-body.png";
 import rabbit from "../../assets/rabbit-body.png";
-import puppy from "../../assets/puppy-body.png";
+import dog from "../../assets/dog-body.png";
 import sendEnabled from "../../assets/send-enabled.svg";
 import sendDisabled from "../../assets/send-disabled.svg";
 
 const Keyword = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [characterImg, setCharacterImg] = useState<string>("");
   const [bgUrl, setBgUrl] = useState<string>("");
   const [color, setColor] = useState<string>("");
   const { age, character, keyword, setKeyword } = useStory();
@@ -32,15 +33,18 @@ const Keyword = () => {
     if (age === 0 || character === "") {
       navigate("/");
     }
-    if (character === "토끼") {
+    if (character === "rabbit") {
       setBgUrl(rabbitBg);
       setColor("--primary");
-    } else if (character === "곰") {
+      setCharacterImg(rabbit);
+    } else if (character === "bear") {
       setBgUrl(bearBg);
       setColor("--green");
-    } else if (character === "강아지") {
-      setBgUrl(puppyBg);
+      setCharacterImg(bear);
+    } else if (character === "dog") {
+      setBgUrl(dogBg);
       setColor("--purple");
+      setCharacterImg(dog);
     }
   }, [age, character, navigate]);
 
@@ -61,16 +65,6 @@ const Keyword = () => {
       navigate("/");
     } else {
       alert("키워드를 입력해주세요.");
-    }
-  };
-
-  const renderCharacter = () => {
-    if (character === "토끼") {
-      return <img src={rabbit} width={287} />;
-    } else if (character === "곰") {
-      return <img src={bear} width={287} />;
-    } else if (character === "강아지") {
-      return <img src={puppy} width={287} />;
     }
   };
 
@@ -107,7 +101,7 @@ const Keyword = () => {
                 <br />
                 문장으로 입력해도 좋아.
               </div>
-              {renderCharacter()}
+              <img src={characterImg} width={287} />
             </div>
             <div css={inputWrapperCss}>
               <div>

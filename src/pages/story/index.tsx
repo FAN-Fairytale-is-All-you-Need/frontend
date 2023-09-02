@@ -13,7 +13,7 @@ import lightbulbPurple from "../../assets/lightbulbPurple.svg";
 import next from "../../assets/next.svg";
 import prev from "../../assets/prev.svg";
 import rabbitBg from "../../assets/rabbit-bg.png";
-import puppyBg from "../../assets/puppy-bg.png";
+import dogBg from "../../assets/dog-bg.png";
 import bearBg from "../../assets/bear-bg.png";
 
 const Story = () => {
@@ -35,18 +35,18 @@ const Story = () => {
   } = useStory();
 
   useEffect(() => {
-    if (character === "토끼") {
+    if (character === "rabbit") {
       setBgUrl(rabbitBg);
       setColor("--primary");
       setColor2("--primary2");
       setLb(lightbulbOrange);
-    } else if (character === "곰") {
+    } else if (character === "bear") {
       setBgUrl(bearBg);
       setColor("--green");
       setColor2("--green2");
       setLb(lightbulbGreen);
-    } else if (character === "강아지") {
-      setBgUrl(puppyBg);
+    } else if (character === "dog") {
+      setBgUrl(dogBg);
       setColor("--purple");
       setColor2("--purple2");
       setLb(lightbulbPurple);

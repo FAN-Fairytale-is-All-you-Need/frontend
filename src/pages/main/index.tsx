@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import defaultBg from "../../assets/default-bg.png";
 import rabbitBody from "../../assets/rabbit-body.png";
 import bearBody from "../../assets/bear-body.png";
-import puppyBody from "../../assets/puppy-body.png";
+import dogBody from "../../assets/dog-body.png";
 
 const Main = () => {
   const { age, character, setAge, setCharacter } = useStory();
@@ -54,14 +54,14 @@ const Main = () => {
         </div>
         <div css={labelCss}>동화에서 만나고 싶은 캐릭터를 골라주세요.</div>
         <div css={characterCss} onClick={changeCharacter}>
-          <div id="토끼" className={"토끼" === character ? "checked" : ""}>
+          <div id="rabbit" className={"rabbit" === character ? "checked" : ""}>
             <img src={rabbitBody} />
           </div>
-          <div id="곰" className={"곰" === character ? "checked" : ""}>
+          <div id="bear" className={"bear" === character ? "checked" : ""}>
             <img src={bearBody} />
           </div>
-          <div id="강아지" className={"강아지" === character ? "checked" : ""}>
-            <img src={puppyBody} />
+          <div id="dog" className={"dog" === character ? "checked" : ""}>
+            <img src={dogBody} />
           </div>
         </div>
         <button
@@ -178,13 +178,13 @@ const characterCss = css`
       opacity: 1;
     }
   }
-  #곰.checked {
+  #bear.checked {
     background: var(--green2);
   }
-  #토끼.checked {
+  #rabbit.checked {
     background: var(--secondary--light);
   }
-  #강아지.checked {
+  #dog.checked {
     background: var(--purple2);
   }
 `;

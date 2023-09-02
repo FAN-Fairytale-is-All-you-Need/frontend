@@ -2,14 +2,14 @@
 import { css } from "@emotion/react";
 import rabbit from "../../assets/rabbit-head.png";
 import bear from "../../assets/bear-head.png";
-import puppy from "../../assets/puppy-head.png";
+import dog from "../../assets/dog-head.png";
 
 const Loading = () => {
   return (
     <div css={loadingCss}>
       <img src={rabbit} />
       <img src={bear} />
-      <img src={puppy} />
+      <img src={dog} />
     </div>
   );
 };
