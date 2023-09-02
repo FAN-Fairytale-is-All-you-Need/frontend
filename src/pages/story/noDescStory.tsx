@@ -7,20 +7,19 @@ import useStory from "../../stores";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
-// import lightbulbOrange from "../../assets/lightbulbOrange.svg";
-// import lightbulbGreen from "../../assets/lightbulbGreen.svg";
-// import lightbulbPurple from "../../assets/lightbulbPurple.svg";
 import next from "../../assets/next.svg";
 import prev from "../../assets/prev.svg";
 import rabbitBg from "../../assets/rabbit-bg.png";
 import dogBg from "../../assets/dog-bg.png";
 import bearBg from "../../assets/bear-bg.png";
+import audioOrange from "../../assets/audio-orange.svg";
+import audioGreen from "../../assets/audio-green.svg";
+import audioPurple from "../../assets/audio-purple.svg";
 
 const Story = () => {
   const [bgUrl, setBgUrl] = useState<string>("");
-  // const [color, setColor] = useState<string>("");
-  // const [color2, setColor2] = useState<string>("");
-  // const [lb, setLb] = useState<string>("");
+  const [color, setColor] = useState<string>("");
+  const [audioImg, setAudioImg] = useState<string>("");
   const navigate = useNavigate();
   const { age, character, keyword, storyText, storyImage, storyDesc } =
     useStory();
@@ -28,19 +27,16 @@ const Story = () => {
   useEffect(() => {
     if (character === "rabbit") {
       setBgUrl(rabbitBg);
-      // setColor("--primary");
-      // setColor2("--primary2");
-      // setLb(lightbulbOrange);
+      setColor("--primary");
+      setAudioImg(audioOrange);
     } else if (character === "bear") {
       setBgUrl(bearBg);
-      // setColor("--green");
-      // setColor2("--green2");
-      // setLb(lightbulbGreen);
+      setColor("--green");
+      setAudioImg(audioGreen);
     } else if (character === "dog") {
       setBgUrl(dogBg);
-      // setColor("--purple");
-      // setColor2("--purple2");
-      // setLb(lightbulbPurple);
+      setColor("--purple");
+      setAudioImg(audioPurple);
     }
   }, [character]);
 
@@ -107,30 +103,25 @@ const Story = () => {
         <Slider {...settings}>
           {storyText.map((text: string, index: number) => {
             return (
-              <div key={index} css={imageAndTextCss}>
-                <img src={storyImage[index]} />
-                <div className="text">{text}</div>
+              <div key={index} css={imageAndTextCss(color)}>
+                <img className="image-wrapper" src={storyImage[index]} />
+                <div className="text-wrapper">
+                  <div className="label">{keyword}에 대한 이야기</div>
+                  <div className="text">{text}</div>
+                  <button className="button">
+                    <div className="circle">
+                      <img className="audio" src={audioImg} />
+                    </div>
+                    오디오 듣기
+                  </button>
+                </div>
               </div>
             );
           })}
         </Slider>
-        {/* <div css={storyDescCss(color, color2)}>
-          <div className="label">
-            <img src={lb} />
-            {keyword}(이)란?
-          </div>
-          <div className="text">{renderStoryDesc()}</div>
-        </div> */}
       </div>
     );
   };
-
-  // const renderStoryDesc = () => {
-  //   const desc = storyDesc.map((d: string, index: number) => {
-  //     return <div key={index}>{d}</div>;
-  //   });
-  //   return desc;
-  // };
 
   return (
     <div css={wrapperCss(bgUrl)}>
@@ -145,11 +136,11 @@ const Story = () => {
 };
 
 const sliderCss = css`
+  position: relative;
   display: flex !important;
   margin-bottom: 24px;
   .slick-slider {
-    /* width: 688px; */
-    width: 1080px; // no-desc
+    width: 1060px; // no-desc
     position: unset; // no-desc
     height: auto;
   }
@@ -159,9 +150,11 @@ const sliderCss = css`
   .slick-track {
     display: flex !important;
     height: 100%;
+    padding: 4px;
   }
   .slick-slide {
     height: auto;
+    margin: 8px;
   }
   .slick-slide > div {
     height: 100%;
@@ -171,8 +164,8 @@ const sliderCss = css`
 const prevArrowCss = css`
   position: absolute;
   z-index: 1;
-  top: 40%;
-  left: 110px;
+  top: 45%;
+  left: -54px;
   &:before {
     opacity: 1;
     content: url(${prev});
@@ -183,8 +176,8 @@ const prevArrowCss = css`
 `;
 const nextArrowCss = css`
   position: absolute;
-  top: 40%;
-  right: 110px;
+  top: 45%;
+  right: -54px;
   &:before {
     opacity: 1;
     content: url(${next});
@@ -194,32 +187,77 @@ const nextArrowCss = css`
   }
 `;
 
-const imageAndTextCss = css`
+const imageAndTextCss = (color: string) => css`
   display: flex !important;
-  height: 100%;
-  /* flex-direction: column; */
-  img {
-    /* width: 668px;
-    height: 403px; */
+  height: 520;
+  .image-wrapper {
+    display: table;
     width: 512px; // no-desc
     height: 512px; // no-desc
     border-radius: 20px;
     border: 1px solid var(--gray4);
-    /* margin-bottom: 12px; */
-    margin-right: 12px; // no-desc
+    margin-right: 16px; // no-desc
     background-color: var(--gray5);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
-  div {
-    /* width: 598px; */
-    width: 442px; // no-desc
-    height: 464px; // no-desc
-    line-height: 175%;
-    flex: 1;
-    padding: 24px 35px;
-    font-size: var(--body--size);
-    font-weight: 700;
-    background-color: var(--white);
+  .text-wrapper {
+    position: relative;
+    width: 512px;
+    height: 512px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
+    overflow: hidden;
+    flex: 1;
+    .label {
+      text-align: center;
+      width: 100%;
+      color: var(--white);
+      font-size: var(--body--size);
+      font-weight: var(--tag--weight);
+      background-color: var(${color});
+      padding: 16px 0;
+      height: min-content;
+      border-radius: 0;
+    }
+    .text {
+      font-size: 24px;
+      font-weight: 700;
+      background-color: var(--white);
+      padding: 24px 35px;
+      line-height: 175%;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      background-color: var(--white);
+      border-radius: 0;
+    }
+    .button {
+      box-shadow: 0 0 0 0;
+      position: absolute;
+      right: 32px;
+      bottom: 32px;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      font-size: 12px;
+      font-weight: var(--button--weight);
+      color: var(--gray2);
+      .circle {
+        width: 61px;
+        height: 61px;
+        background-color: var(--gray5);
+        border-radius: 32px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        .audio {
+          width: 33.882px;
+          height: 23.503px;
+          margin: auto;
+          display: block;
+        }
+      }
+    }
   }
 `;
 
@@ -229,8 +267,7 @@ const wrapperCss = (url: string) => css`
     width: clamp(480px, 100vw, 1200px);
     margin: 0 auto;
     height: 100%;
-    /* padding: 8px 100px 160px 100px; */
-    padding: 48px 100px 160px 100px; // no-desc
+    padding: 12px 100px 200px 100px; // no-desc
     display: flex;
     flex-direction: column;
     align-items: center;

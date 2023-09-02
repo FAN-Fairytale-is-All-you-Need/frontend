@@ -1,7 +1,23 @@
 import { rest } from "msw";
 
+interface RequestParams {
+  keyword: string;
+  age: string;
+  character: string;
+}
+
 export const handlers = [
-  rest.post("/api/story", (req, res, ctx) => {
+  rest.post<RequestParams>("/generate", (req, res, ctx) => {
+    const { keyword, age, character } = req.body;
+    if (keyword === "잼민이") {
+      return res(
+        ctx.status(400),
+        ctx.delay(1000),
+        ctx.json({
+          error: "Inappropriate keyword",
+        })
+      );
+    }
     return res(
       ctx.status(200),
       ctx.delay(5000),
@@ -26,7 +42,7 @@ export const handlers = [
         desc4:
           "때로는 중력 때문에 물체들이 떨어지게 되는데요. 예를 들어, 토이 블록을 높은 곳에서 떨어뜨리면 바닥에 떨어지게 되죠. 이건 중력 때문에 일어나는 일이에요.",
         keyword: "중력",
-        req: req,
+        req: { character, age, keyword },
       })
     );
   }),

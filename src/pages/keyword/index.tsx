@@ -20,8 +20,11 @@ import rabbit from "../../assets/rabbit-body.png";
 import dog from "../../assets/dog-body.png";
 import sendEnabled from "../../assets/send-enabled.svg";
 import sendDisabled from "../../assets/send-disabled.svg";
+import Modal from "../../components/modal";
 
 const Keyword = () => {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalText, setModalText] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [characterImg, setCharacterImg] = useState<string>("");
   const [bgUrl, setBgUrl] = useState<string>("");
@@ -65,16 +68,17 @@ const Keyword = () => {
   const isEmptyQuestion = question !== "" ? false : true;
 
   const axiosStory = async () => {
+    const url =
+      process.env.NODE_ENV === "development"
+        ? "/generate"
+        : import.meta.env.VITE_APP_AI_SERVER_URL + "/generate";
     try {
       const requestData = {
         character,
         age,
         keyword: question,
       };
-      const response = await axios.post(
-        import.meta.env.VITE_APP_AI_SERVER_URL + "/generate",
-        requestData
-      );
+      const response = await axios.post(url, requestData);
       const {
         image1,
         image2,
@@ -87,41 +91,31 @@ const Keyword = () => {
         desc,
         keyword,
       } = response.data;
-      console.log(response.data);
       setStoryImage([image1, image2, image3, image4]);
       setStoryText([text1, text2, text3, text4]);
       setStoryDesc([desc]);
       setKeyword(keyword);
       navigate("/story");
     } catch (err) {
-      alert(err);
+      if (axios.isAxiosError(err)) {
+        if (err.response) {
+          const { error } = err.response.data;
+          if (error === "Inappropriate keyword") {
+            setModalText(
+              "이 단어로는 이야기를 만들 수 없어요.\n다른 검색어를 입력해주세요."
+            );
+            setQuestion("");
+          }
+        } else if (err.request) {
+          setModalText("error: " + err.message);
+        } else {
+          setModalText("error: " + err.message);
+        }
+        setModalOpen(true);
+      }
     }
     setLoading(false);
   };
-
-  // const setTestData = () => {
-  //   setStoryImage([
-  //     "https://picsum.photos/512/512",
-  //     "https://picsum.photos/512/512",
-  //     "https://picsum.photos/512/512",
-  //     "https://picsum.photos/512/512",
-  //   ]);
-  //   setStoryText([
-  //     "옛날 옛적에, 지구라는 큰 행성에는 중력이라는 힘이 있었어요. 중력은 마치 끌어당기는 힘이에요. 이 힘은 모든 물체를 지구로 끌어당기는데",
-  //     "중력의 비밀은 모든 물체가 무엇이든 끌려온다는 거예요. 작은 물체든 큰 물체든 중력은 모두에게 똑같이 작용해요. 예를 들어, 나무 위에 있는 잎사귀도 중력의 힘에 따라 아래로 내려오게 되죠",
-  //     "중력은 물체의 무게에 영향을 주는데요. 무거운 물체일수록 중력이 더 강해져요. 그래서 무거운 물체는 가볍은 물체보다 더 빨리 아래로 떨어지게 되어요. ",
-  //     "중력은 우리 주위에서 항상 일어나는 일이에요. 우리가 걷거나 뛰거나 물건을 떨어뜨릴 때마다 중력이 작용해요. 중력의 비밀을 알아가면서 더 흥미로운 것들을 배우고 더 많은 경험을 할 수 있을 거예요!",
-  //   ]);
-  //   setStoryDesc([
-  //     "중력은 지구가 우리 주위의 모든 물체를 끌어당기는 힘이에요.",
-  //     "예를 들어, 지구에서 떨어지면 우리는 땅으로 떨어지게 됩니다. 이것이 중력의 법칙이에요.",
-  //     "중력은 지구 안에 있는 모든 물체에 작용해요. 그래서 우리가 땅에 서 있을 수 있는 거예요.",
-  //     "때로는 중력 때문에 물체들이 떨어지게 되는데요. 예를 들어, 토이 블록을 높은 곳에서 떨어뜨리면 바닥에 떨어지게 되죠. 이건 중력 때문에 일어나는 일이에요.",
-  //   ]);
-  //   setKeyword("중력");
-  //   navigate("/story");
-  //   setLoading(false);
-  // };
 
   const requestStory = () => {
     if (age && character && question) {
@@ -148,8 +142,14 @@ const Keyword = () => {
     }
   };
 
+  const modalClose = () => {
+    setModalText("");
+    setModalOpen(false);
+  };
+
   return (
     <div css={wrapperCss(bgUrl)}>
+      {modalOpen && <Modal onClose={modalClose} text={modalText} />}
       <Logo goBack={goBack} text="궁금한 주제를 알려주세요" />
       <div className="wrapper">
         {!loading ? (
