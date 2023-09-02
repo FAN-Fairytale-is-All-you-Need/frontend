@@ -1,12 +1,14 @@
 interface storyState {
   age: number | "";
   character: string;
+  question: string;
   keyword: string;
   storyText: string[];
   storyImage: string[];
   storyDesc: string[];
   setAge: (input: number | "") => void;
   setCharacter: (input: string) => void;
+  setQuestion: (input: string) => void;
   setKeyword: (input: string) => void;
   setStoryText: (input: string[]) => void;
   setStoryImage: (input: string[]) => void;

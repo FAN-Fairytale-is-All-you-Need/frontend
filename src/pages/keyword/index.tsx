@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import axios from "axios";
 import useStory from "../../stores";
 import {
   ChangeEvent,
@@ -25,7 +26,16 @@ const Keyword = () => {
   const [characterImg, setCharacterImg] = useState<string>("");
   const [bgUrl, setBgUrl] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const { age, character, keyword, setKeyword } = useStory();
+  const {
+    age,
+    character,
+    question,
+    setQuestion,
+    setKeyword,
+    setStoryImage,
+    setStoryText,
+    setStoryDesc,
+  } = useStory();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,31 +62,90 @@ const Keyword = () => {
     navigate(-1);
   };
 
-  const isEmptyKeyword = keyword !== "" ? false : true;
+  const isEmptyQuestion = question !== "" ? false : true;
+
+  const axiosStory = async () => {
+    try {
+      const requestData = {
+        character,
+        age,
+        question,
+      };
+      const response = await axios.post(
+        import.meta.env.VITE_APP_AI_SERVER_URL + "/api/story",
+        requestData
+      );
+      const {
+        image1,
+        image2,
+        image3,
+        image4,
+        text1,
+        text2,
+        text3,
+        text4,
+        desc1,
+        desc2,
+        desc3,
+        desc4,
+        keyword,
+      } = response.data;
+      setStoryImage([image1, image2, image3, image4]);
+      setStoryText([text1, text2, text3, text4]);
+      setStoryDesc([desc1, desc2, desc3, desc4]);
+      setKeyword(keyword);
+      navigate("/story");
+    } catch (err) {
+      alert(err);
+    }
+    setLoading(false);
+  };
+
+  const setTestData = () => {
+    setStoryImage([
+      "https://picsum.photos/512/512",
+      "https://picsum.photos/512/512",
+      "https://picsum.photos/512/512",
+      "https://picsum.photos/512/512",
+    ]);
+    setStoryText([
+      "옛날 옛적에, 지구라는 큰 행성에는 중력이라는 힘이 있었어요. 중력은 마치 끌어당기는 힘이에요. 이 힘은 모든 물체를 지구로 끌어당기는데",
+      "중력의 비밀은 모든 물체가 무엇이든 끌려온다는 거예요. 작은 물체든 큰 물체든 중력은 모두에게 똑같이 작용해요. 예를 들어, 나무 위에 있는 잎사귀도 중력의 힘에 따라 아래로 내려오게 되죠",
+      "중력은 물체의 무게에 영향을 주는데요. 무거운 물체일수록 중력이 더 강해져요. 그래서 무거운 물체는 가볍은 물체보다 더 빨리 아래로 떨어지게 되어요. ",
+      "중력은 우리 주위에서 항상 일어나는 일이에요. 우리가 걷거나 뛰거나 물건을 떨어뜨릴 때마다 중력이 작용해요. 중력의 비밀을 알아가면서 더 흥미로운 것들을 배우고 더 많은 경험을 할 수 있을 거예요!",
+    ]);
+    setStoryDesc([
+      "중력은 지구가 우리 주위의 모든 물체를 끌어당기는 힘이에요.",
+      "예를 들어, 지구에서 떨어지면 우리는 땅으로 떨어지게 됩니다. 이것이 중력의 법칙이에요.",
+      "중력은 지구 안에 있는 모든 물체에 작용해요. 그래서 우리가 땅에 서 있을 수 있는 거예요.",
+      "때로는 중력 때문에 물체들이 떨어지게 되는데요. 예를 들어, 토이 블록을 높은 곳에서 떨어뜨리면 바닥에 떨어지게 되죠. 이건 중력 때문에 일어나는 일이에요.",
+    ]);
+    setKeyword("중력");
+    navigate("/story");
+    setLoading(false);
+  };
 
   const requestStory = () => {
-    if (age && character && keyword) {
-      setTimeout(() => {
-        navigate("/story");
-      }, 5000);
+    if (age && character && question) {
       setLoading(true);
-    } else if (!age || !character) {
-      alert("나이와 캐릭터를 입력해주세요.");
-      navigate("/");
-    } else {
-      alert("키워드를 입력해주세요.");
+      // MSW 설정해두어서 API 연결 전까지는 development 모드에서만 작동해야됨
+      if (process.env.NODE_ENV === "development") {
+        axiosStory();
+      } else {
+        setTestData();
+      }
     }
   };
 
-  const changeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    setKeyword(target.value);
+    setQuestion(target.value);
   };
 
   const setRecommandKeyword = (e: MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
     if (target.textContent && target.className === "keyword") {
-      setKeyword(target.textContent);
+      setQuestion(target.textContent);
     }
   };
 
@@ -112,15 +181,15 @@ const Keyword = () => {
                   <div className="keyword">저축</div>
                   <div className="keyword">인공지능</div>
                 </div>
-                <div css={inputCss} className={isEmptyKeyword ? "empty" : ""}>
+                <div css={inputCss} className={isEmptyQuestion ? "empty" : ""}>
                   <input
                     type="text"
-                    onChange={changeKeyword}
-                    value={keyword}
+                    onChange={changeQuestion}
+                    value={question}
                     placeholder="궁금한 점을 입력해주세요."
                     onKeyDown={handleOnKeyDown}
                   />
-                  <button onClick={requestStory} disabled={isEmptyKeyword} />
+                  <button onClick={requestStory} disabled={isEmptyQuestion} />
                 </div>
               </div>
             </div>

@@ -25,15 +25,15 @@ const loadingCss = css`
     width: 108px;
     animation: lds-facebook 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   }
-  img:nth-child(1) {
+  img:nth-of-type(1) {
     left: 8px;
     animation-delay: -0.48s;
   }
-  img:nth-child(2) {
+  img:nth-of-type(2) {
     left: 80px;
     animation-delay: -0.24s;
   }
-  img:nth-child(3) {
+  img:nth-of-type(3) {
     left: 160px;
     animation-delay: 0;
   }
