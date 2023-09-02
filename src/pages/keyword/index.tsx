@@ -132,7 +132,9 @@ const Keyword = () => {
       if (process.env.NODE_ENV === "development") {
         axiosStory();
       } else {
-        setTestData();
+        setTimeout(() => {
+          setTestData();
+        }, 5000);
       }
     }
   };
