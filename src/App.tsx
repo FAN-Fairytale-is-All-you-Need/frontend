@@ -4,7 +4,7 @@ import global from "./styles/global.ts";
 import Main from "./pages/main/index.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Keyword from "./pages/keyword/index.tsx";
-import Story from "./pages/story/index.tsx";
+import Story from "./pages/story/noDescIndex.tsx";
 
 function App() {
   return (

@@ -7,9 +7,9 @@ import useStory from "../../stores";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
-import lightbulbOrange from "../../assets/lightbulbOrange.svg";
-import lightbulbGreen from "../../assets/lightbulbGreen.svg";
-import lightbulbPurple from "../../assets/lightbulbPurple.svg";
+// import lightbulbOrange from "../../assets/lightbulbOrange.svg";
+// import lightbulbGreen from "../../assets/lightbulbGreen.svg";
+// import lightbulbPurple from "../../assets/lightbulbPurple.svg";
 import next from "../../assets/next.svg";
 import prev from "../../assets/prev.svg";
 import rabbitBg from "../../assets/rabbit-bg.png";
@@ -18,9 +18,9 @@ import bearBg from "../../assets/bear-bg.png";
 
 const Story = () => {
   const [bgUrl, setBgUrl] = useState<string>("");
-  const [color, setColor] = useState<string>("");
-  const [color2, setColor2] = useState<string>("");
-  const [lb, setLb] = useState<string>("");
+  // const [color, setColor] = useState<string>("");
+  // const [color2, setColor2] = useState<string>("");
+  // const [lb, setLb] = useState<string>("");
   const navigate = useNavigate();
   const { age, character, keyword, storyText, storyImage, storyDesc } =
     useStory();
@@ -28,19 +28,19 @@ const Story = () => {
   useEffect(() => {
     if (character === "rabbit") {
       setBgUrl(rabbitBg);
-      setColor("--primary");
-      setColor2("--primary2");
-      setLb(lightbulbOrange);
+      // setColor("--primary");
+      // setColor2("--primary2");
+      // setLb(lightbulbOrange);
     } else if (character === "bear") {
       setBgUrl(bearBg);
-      setColor("--green");
-      setColor2("--green2");
-      setLb(lightbulbGreen);
+      // setColor("--green");
+      // setColor2("--green2");
+      // setLb(lightbulbGreen);
     } else if (character === "dog") {
       setBgUrl(dogBg);
-      setColor("--purple");
-      setColor2("--purple2");
-      setLb(lightbulbPurple);
+      // setColor("--purple");
+      // setColor2("--purple2");
+      // setLb(lightbulbPurple);
     }
   }, [character]);
 
@@ -108,31 +108,29 @@ const Story = () => {
           {storyText.map((text: string, index: number) => {
             return (
               <div key={index} css={imageAndTextCss}>
-                <div className="image-wrapper">
-                  <img src={storyImage[index]} />
-                </div>
-                <div className="text-wrapper">{text}</div>
+                <img src={storyImage[index]} />
+                <div className="text">{text}</div>
               </div>
             );
           })}
         </Slider>
-        <div css={storyDescCss(color, color2)}>
+        {/* <div css={storyDescCss(color, color2)}>
           <div className="label">
             <img src={lb} />
             {keyword}(이)란?
           </div>
           <div className="text">{renderStoryDesc()}</div>
-        </div>
+        </div> */}
       </div>
     );
   };
 
-  const renderStoryDesc = () => {
-    const desc = storyDesc.map((d: string, index: number) => {
-      return <div key={index}>{d}</div>;
-    });
-    return desc;
-  };
+  // const renderStoryDesc = () => {
+  //   const desc = storyDesc.map((d: string, index: number) => {
+  //     return <div key={index}>{d}</div>;
+  //   });
+  //   return desc;
+  // };
 
   return (
     <div css={wrapperCss(bgUrl)}>
@@ -150,8 +148,9 @@ const sliderCss = css`
   display: flex !important;
   margin-bottom: 24px;
   .slick-slider {
-    width: 688px;
-    position: unset;
+    /* width: 688px; */
+    width: 1080px; // no-desc
+    position: unset; // no-desc
     height: auto;
   }
   .slick-list {
@@ -198,22 +197,22 @@ const nextArrowCss = css`
 const imageAndTextCss = css`
   display: flex !important;
   height: 100%;
-  flex-direction: column;
-  .image-wrapper {
-    width: 668px;
-    height: 453px;
+  /* flex-direction: column; */
+  img {
+    /* width: 668px;
+    height: 403px; */
+    width: 512px; // no-desc
+    height: 512px; // no-desc
     border-radius: 20px;
     border: 1px solid var(--gray4);
-    margin-bottom: 12px;
+    /* margin-bottom: 12px; */
+    margin-right: 12px; // no-desc
     background-color: var(--gray5);
-    overflow: hidden;
-    img {
-      width: 100%;
-      object-fit: cover;
-    }
   }
-  .text-wrapper {
-    width: 598px;
+  div {
+    /* width: 598px; */
+    width: 442px; // no-desc
+    height: 464px; // no-desc
     line-height: 175%;
     flex: 1;
     padding: 24px 35px;
@@ -224,40 +223,40 @@ const imageAndTextCss = css`
   }
 `;
 
-const storyDescCss = (color: string, color2: string) => css`
-  width: 276px;
-  padding: 32px 24px;
-  background-color: var(${color2});
-  border-radius: 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  .label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    img {
-      width: 34px;
-    }
-    font-size: var(--tag--size);
-    font-weight: 800;
-    color: var(${color});
-    text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
-      -2px 2px 0 var(--white), 2px 2px 0 var(--white);
-    margin-bottom: 12px;
-  }
-  .text {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    text-align: left;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 160%;
-  }
-`;
+// const storyDescCss = (color: string, color2: string) => css`
+//   width: 276px;
+//   padding: 32px 24px;
+//   background-color: var(${color2});
+//   border-radius: 20px;
+//   text-align: center;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   .label {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     gap: 12px;
+//     img {
+//       width: 34px;
+//     }
+//     font-size: var(--tag--size);
+//     font-weight: 800;
+//     color: var(${color});
+//     text-shadow: -2px -2px 0 var(--white), 2px -2px 0 var(--white),
+//       -2px 2px 0 var(--white), 2px 2px 0 var(--white);
+//     margin-bottom: 12px;
+//   }
+//   .text {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 12px;
+//     text-align: left;
+//     font-size: 18px;
+//     font-weight: 700;
+//     line-height: 160%;
+//   }
+// `;
 
 const wrapperCss = (url: string) => css`
   .wrapper {
@@ -265,7 +264,8 @@ const wrapperCss = (url: string) => css`
     width: clamp(480px, 100vw, 1200px);
     margin: 0 auto;
     height: 100%;
-    padding: 8px 100px 160px 100px;
+    /* padding: 8px 100px 160px 100px; */
+    padding: 48px 100px 160px 100px; // no-desc
     display: flex;
     flex-direction: column;
     align-items: center;
