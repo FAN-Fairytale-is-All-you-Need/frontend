@@ -12,14 +12,14 @@ import prev from "../../assets/prev.svg";
 import rabbitBg from "../../assets/rabbit-bg.png";
 import dogBg from "../../assets/dog-bg.png";
 import bearBg from "../../assets/bear-bg.png";
-import audioOrange from "../../assets/audio-orange.svg";
-import audioGreen from "../../assets/audio-green.svg";
-import audioPurple from "../../assets/audio-purple.svg";
+// import audioOrange from "../../assets/audio-orange.svg";
+// import audioGreen from "../../assets/audio-green.svg";
+// import audioPurple from "../../assets/audio-purple.svg";
 
 const Story = () => {
   const [bgUrl, setBgUrl] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const [audioImg, setAudioImg] = useState<string>("");
+  // const [audioImg, setAudioImg] = useState<string>("");
   const navigate = useNavigate();
   const { age, character, keyword, storyText, storyImage, storyDesc } =
     useStory();
@@ -28,15 +28,15 @@ const Story = () => {
     if (character === "rabbit") {
       setBgUrl(rabbitBg);
       setColor("--primary");
-      setAudioImg(audioOrange);
+      // setAudioImg(audioOrange);
     } else if (character === "bear") {
       setBgUrl(bearBg);
       setColor("--green");
-      setAudioImg(audioGreen);
+      // setAudioImg(audioGreen);
     } else if (character === "dog") {
       setBgUrl(dogBg);
       setColor("--purple");
-      setAudioImg(audioPurple);
+      // setAudioImg(audioPurple);
     }
   }, [character]);
 
@@ -108,12 +108,12 @@ const Story = () => {
                 <div className="text-wrapper">
                   <div className="label">{keyword}에 대한 이야기</div>
                   <div className="text">{text}</div>
-                  <button className="button">
+                  {/* <button className="button">
                     <div className="circle">
                       <img className="audio" src={audioImg} />
                     </div>
                     오디오 듣기
-                  </button>
+                  </button> */}
                 </div>
               </div>
             );
