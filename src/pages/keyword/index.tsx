@@ -73,8 +73,12 @@ const Keyword = () => {
         ? "/generate"
         : import.meta.env.VITE_APP_AI_SERVER_URL + "/generate";
     try {
+      let requestCharacter = "";
+      if (character === "bear") requestCharacter = "곰";
+      else if (character === "rabbit") requestCharacter = "토끼";
+      else if (character === "dog") requestCharacter = "강아지";
       const requestData = {
-        character,
+        character: requestCharacter,
         age,
         keyword: question,
       };
