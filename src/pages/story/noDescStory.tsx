@@ -195,7 +195,6 @@ const imageAndTextCss = (color: string) => css`
     width: 512px; // no-desc
     height: 512px; // no-desc
     border-radius: 20px;
-    border: 1px solid var(--gray4);
     margin-right: 16px; // no-desc
     background-color: var(--gray5);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
