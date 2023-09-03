@@ -173,7 +173,7 @@ const Keyword = () => {
               <div>
                 <span>이런 주제에 대해서도 물어볼 수 있어요.</span>
                 <div css={recommandCss(color)} onClick={setRecommandKeyword}>
-                  <div className="keyword">중력</div>
+                  <div className="keyword">투표</div>
                   <div className="keyword">화산</div>
                   <div className="keyword">저축</div>
                   <div className="keyword">인공지능</div>
